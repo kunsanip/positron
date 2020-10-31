@@ -24,7 +24,6 @@ public class PositronApiClient
                 let jsonData = response.data
                 do{
                     moments =  try JSONDecoder().decode([MomentApiModel].self, from: jsonData!)
-                    
                     completion(moments)
                 }catch {
                     print("Error: \(error)")

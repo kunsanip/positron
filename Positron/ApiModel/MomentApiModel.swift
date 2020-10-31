@@ -15,6 +15,7 @@ public class MomentApiModel: Codable
     public var AudioRecordingURL : String?
     public var TranscribedNotes : String?
     public var MomentDate : String?
+    public var UserID : String?
     
     enum CodingKeys: String, CodingKey
     {
@@ -22,6 +23,7 @@ public class MomentApiModel: Codable
         case  AudioRecordingURL = "AudioRecordingURL"
         case  TranscribedNotes = "TranscribedNotes"
         case  MomentDate = "MomentDate"
+        case  UserID = "UserID"
     }
     
     public func getTime() -> String
@@ -55,9 +57,16 @@ public class MomentApiModel: Codable
             return formatter.string(from: convMomentDate)
         }
         return ""
-
     }
     
+    public func getDateForApi() -> String
+    {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        return formatter.string(from: Date())
+    }
     public func listPropertiesWithValues(reflect: Mirror? = nil) ->  String {
         let mirror = reflect ?? Mirror(reflecting: self)
         

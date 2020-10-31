@@ -29,29 +29,4 @@ public class SummaryViewController: UIViewController
             }
         }
     }
-    
-//    public func GetPeopleData() -> [String]
-//    {
-//        Alamofire.req .request("http://www.sanip.com.au/json/api/getPeople").responseJSON { (response) in
-//            switch response.result {
-//            case .success:
-//                if((response.result) != nil) {
-//                    let jsonData = response.data
-//                    do{
-//                        SVProgressHUD.showProgress(1, status: "Downloading")
-//                        SVProgressHUD.setBackgroundColor(UIColor(red: 200, green: 235, blue: 244, alpha: 1))
-//                        self.peopleData =  try JSONDecoder().decode([PeopleStruct].self, from: jsonData!)
-//                        SVProgressHUD.dismiss()
-//
-//                    }catch {
-//                        print("Error: \(error)")
-//                    }
-//                }
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//        return self.peopleData
-//
-//    }
 }

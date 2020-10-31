@@ -28,12 +28,13 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
     let request = SFSpeechAudioBufferRecognitionRequest()
     
     var message: String = ""
-    
+    var AudioFileName: String = ""
     var MomentList: [Moment] = []
     var numberOfRecord = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         momentTable = MomentTableView(instance: self)
         
         initializeAudioRecord()
@@ -67,7 +68,7 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
 
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         label.center = centre
-        label.text = "+"
+        label.text = "🙈"
         label.font = UIFont(name: "arial", size: 30)
         label.textAlignment = .center
 
@@ -101,12 +102,33 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
     
     @objc private func handleLongGesture(sender: UILongPressGestureRecognizer)
     {
+        let centre = CGPoint(x: view.center.x, y: view.center.y - 100)
+
         print("Attempting to animate stroke.")
         let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
-        let audioFileName = "ZEUS3.wav"
 
         if (sender.state == .began){
-//            startSpeechRecognization()
+            
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
+
+            AudioFileName = "\(AppDelegate.UserID)-\(UtilDate.getCurrentDateString()).wav"
+
+            let circularPath = UIBezierPath(arcCenter: centre, radius: 80, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
+            trackShapeLayer.path = circularPath.cgPath
+            shapeLayer.path = circularPath.cgPath
+            imageView.frame = CGRect(x: 0, y: 0, width: 180, height: 180)
+            imageView.center = centre
+                
+            UIView.animate(withDuration: 1, animations: {
+                self.imageView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+              
+            }) { (finished) in
+                UIView.animate(withDuration: 1, animations: {
+                    self.imageView.transform = CGAffineTransform.identity
+               
+                })
+            }
+            // startSpeechRecognization()
             basicAnimation.toValue = 1
             basicAnimation.duration = 30
             basicAnimation.fillMode = CAMediaTimingFillMode.forwards
@@ -115,8 +137,8 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
             shapeLayer.add(basicAnimation, forKey: "urSoBasic")
             
             print ("a")
-            print (audioFileName)
-            let audioFilename = Util.getDocumentsDirectory().appendingPathComponent(audioFileName)
+            print (AudioFileName)
+            let audioFilePath = Util.getDocumentsDirectory().appendingPathComponent(AudioFileName)
             
             let settings = [
                 AVEncoderBitRateKey: 16,
@@ -126,7 +148,7 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
             ]  as [String : Any]
             
             do {
-                audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
+                audioRecorder = try AVAudioRecorder(url: audioFilePath, settings: settings)
                 audioRecorder.delegate = self
                 audioRecorder.record()
             } catch {
@@ -135,6 +157,12 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
         }
         else if (sender.state == .ended)
         {
+            let circularPath = UIBezierPath(arcCenter: centre, radius: 100, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
+            trackShapeLayer.path = circularPath.cgPath
+            shapeLayer.path = circularPath.cgPath
+            imageView.frame = CGRect(x: 0, y: 0, width: 220, height: 220)
+            imageView.center = centre
+            
             print(self.message)
             let toURL = "\(AppDelegate.ApiURL)/uploadRecording"
 
@@ -142,32 +170,34 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
             moment.MomentName = "Recording " + String(MomentList.count)
             moment.MomentDate = Date()
             moment.AudioRecordingURL = toURL
+            moment.TranscribedNotes = "notes"
             
-            let deviceURL = Util.getDocumentsDirectory().appendingPathComponent(audioFileName)
+            let deviceURL = Util.getDocumentsDirectory().appendingPathComponent(AudioFileName)
             MomentList.append(moment)
             //momentTable.moments = MomentList
             
             self.UploadFile(deviceURL: deviceURL, toURL: toURL)
             
             momentTable.reloadData()
-            
             audioRecorder.stop()
-            
             shapeLayer.removeAllAnimations()
-            
             //transcribeAudio(url: deviceURL, moment: moment)
         }
     }
     
     @objc private func handleTap(sender: UITapGestureRecognizer)
     {
-        let moment = Moment()
-        moment.MomentName = "Recording"
-        moment.MomentDate = Date()
-        moment.AudioRecordingURL = ""
+        let moment = MomentApiModel()
+        moment.MomentName = "Recording \(moment.getDateForApi())"
+        moment.MomentDate = moment.getDateForApi()
+        moment.AudioRecordingURL = "Test"
+        moment.TranscribedNotes = "TestNotes"
+        moment.UserID = AppDelegate.UserID
         
-        MomentList.append(moment)
-//        momentTable.moments = MomentList
+        InsertMoment(moment: moment)
+        
+        //MomentList.append(moment)
+        //momentTable.moments = MomentList
         momentTable.reloadData()
     }
     
@@ -193,7 +223,7 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
         
         momentTable.backgroundColor = view.backgroundColor
     }
-    
+
     private func transcribeAudio(url: URL, moment: Moment) {
         let recognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))
         let request = SFSpeechURLRecognitionRequest(url: url)
@@ -220,77 +250,30 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
         guard let audioFile: Data = try? Data (contentsOf: deviceURL) else {return}
         
         let params = ["username": AppDelegate.UserID,
-                      "password":AppDelegate.Password,
-                      "filename": "ZEUS3"]
-
+                      "password": AppDelegate.Password,
+                      "filename": "audiofile"]
         
         AF.upload(multipartFormData: { multipartFormData in
             for (key, value) in params {
-                        multipartFormData.append(value.data(using: .utf8)!, withName: key)
+                multipartFormData.append(value.data(using: .utf8)!, withName: key)
             }
-            multipartFormData.append(audioFile, withName: "ZEUS3", fileName: fileName, mimeType: "audio/wav")
+            multipartFormData.append(audioFile, withName: "audiofile", fileName: fileName, mimeType: "audio/wav")
         
         }, to: toURL)
         .responseString(completionHandler: { (response) in
             debugPrint(response)
         })
-//        let headers: HTTPHeaders = [
-//            .authorization(username: "znuxnip695av", password: "Futsal103%"),
-//            .accept("application/json")
-//        ]
-//
-//        let fileName = deviceURL.lastPathComponent
-//         guard let audioFile: Data = try? Data (contentsOf: deviceURL) else {return}
-//
-//         AF.upload(multipartFormData: {
-//            (multipartFormData) in
-//                multipartFormData.append(audioFile, withName: "audio", fileName: fileName, mimeType: "audio/m4a")
-//         }, to: toURL).responseJSON { (response) in
-//            debugPrint(response)
-//
-//         }
-//
-//        AF.upload(audioFile, to: toURL, headers: headers)
-//            .uploadProgress { progress in
-//                print("Upload Progress: \(progress.fractionCompleted)")
-//            }
-//            .downloadProgress{progress in
-//                print("Download Progress: \(progress.fractionCompleted)")
-//            }
-//            .responseData(completionHandler: { (data) in
-//                debugPrint(data)
-//            })
     }
     
-//    public func UploadFile(deviceURL : URL, toURL: String)
-//    {
-//        let headers: HTTPHeaders = [
-//            .authorization(username: "znuxnip695av", password: "Futsal103%"),
-//            .accept("application/json")
-//        ]
-//
-//        let fileName = deviceURL.lastPathComponent
-//         guard let audioFile: Data = try? Data (contentsOf: deviceURL) else {return}
-////
-////         AF.upload(multipartFormData: { (multipartFormData) in
-////         multipartFormData.append(audioFile, withName: "audio", fileName: fileName, mimeType: "audio/m4a")
-////         }, to: toURL).responseJSON { (response) in
-////            debugPrint(response)
-////
-////         }
-////
-////        AF.upload(audioFile, to: toURL, headers: headers)
-////            .uploadProgress { progress in
-////                print("Upload Progress: \(progress.fractionCompleted)")
-////            }
-////            .downloadProgress{progress in
-////                print("Download Progress: \(progress.fractionCompleted)")
-////            }
-////            .responseData(completionHandler: { (data) in
-////                debugPrint(data)
-////            })
-//    }
-    
-    struct HTTPBinResponse: Decodable { let url: String }
+    public func InsertMoment(moment: MomentApiModel)
+    {
+        AF.request("https://aquasarmedia.com/monkeymind/addMoment",
+                   method: .post,
+                   parameters: moment,
+                   encoder: JSONParameterEncoder.default).response { response in
+                    debugPrint(response)
+                   }
+    }
 }
+
 

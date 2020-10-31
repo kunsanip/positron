@@ -14,6 +14,7 @@ public class Moment: NSObject
     public var MomentDate : Date?
     public var AudioRecordingURL : String?
     public var TranscribedNotes : String?
+    public var UserID : String?
     
     public func getTime() -> String
     {

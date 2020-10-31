@@ -14,7 +14,7 @@ public class UtilDate
     {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
-        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.dateFormat = "yyyyMMddhhmmss"
         
         let date = Date()
         return  formatter.string(from: date)
