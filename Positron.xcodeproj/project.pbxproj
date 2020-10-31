@@ -1,0 +1,525 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3C4B5D991B11BA867E03459A /* Pods_Positron.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37019C31018978F5192D2F5B /* Pods_Positron.framework */; };
+		D20038C625433122008625FA /* PositronApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20038C525433122008625FA /* PositronApiClient.swift */; };
+		D20038CE254334A4008625FA /* MomentApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D20038CD254334A4008625FA /* MomentApiModel.swift */; };
+		D2005569254C72CB002FED6A /* UtilDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2005568254C72CB002FED6A /* UtilDate.swift */; };
+		D202FB992532E4DD00763C34 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = D202FB982532E4DD00763C34 /* Util.swift */; };
+		D202FBA0253ABEFB00763C34 /* MomentTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D202FB9F253ABEFB00763C34 /* MomentTableView.swift */; };
+		D202FBA4253ACB3B00763C34 /* MomentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D202FBA3253ACB3B00763C34 /* MomentTableViewCell.swift */; };
+		D202FBAC253AF34C00763C34 /* Moment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D202FBAB253AF34C00763C34 /* Moment.swift */; };
+		D237AF70253B35CC00161112 /* MacawChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D237AF6F253B35CC00161112 /* MacawChartView.swift */; };
+		D237AF78253B36A200161112 /* WeeklySummaryBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D237AF77253B36A200161112 /* WeeklySummaryBar.swift */; };
+		D2625E5C253BD14B002A81A7 /* MomentDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2625E5B253BD14B002A81A7 /* MomentDetailsViewController.swift */; };
+		D2FA3E8D251A080700FFBF0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FA3E8C251A080700FFBF0A /* AppDelegate.swift */; };
+		D2FA3E8F251A080700FFBF0A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FA3E8E251A080700FFBF0A /* SceneDelegate.swift */; };
+		D2FA3E91251A080700FFBF0A /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FA3E90251A080700FFBF0A /* SummaryViewController.swift */; };
+		D2FA3E93251A080700FFBF0A /* DailyMomentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FA3E92251A080700FFBF0A /* DailyMomentViewController.swift */; };
+		D2FA3E96251A080700FFBF0A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2FA3E94251A080700FFBF0A /* Main.storyboard */; };
+		D2FA3E98251A080900FFBF0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2FA3E97251A080900FFBF0A /* Assets.xcassets */; };
+		D2FA3E9B251A080900FFBF0A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2FA3E99251A080900FFBF0A /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		37019C31018978F5192D2F5B /* Pods_Positron.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Positron.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		50292DFA5CABFBA25F895FB8 /* Pods-Positron.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Positron.release.xcconfig"; path = "Target Support Files/Pods-Positron/Pods-Positron.release.xcconfig"; sourceTree = "<group>"; };
+		6B11D8248153D56D71BFF681 /* Pods-Positron.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Positron.debug.xcconfig"; path = "Target Support Files/Pods-Positron/Pods-Positron.debug.xcconfig"; sourceTree = "<group>"; };
+		D20038C525433122008625FA /* PositronApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositronApiClient.swift; sourceTree = "<group>"; };
+		D20038CD254334A4008625FA /* MomentApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentApiModel.swift; sourceTree = "<group>"; };
+		D2005568254C72CB002FED6A /* UtilDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilDate.swift; sourceTree = "<group>"; };
+		D202FB982532E4DD00763C34 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		D202FB9F253ABEFB00763C34 /* MomentTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentTableView.swift; sourceTree = "<group>"; };
+		D202FBA3253ACB3B00763C34 /* MomentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentTableViewCell.swift; sourceTree = "<group>"; };
+		D202FBAB253AF34C00763C34 /* Moment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moment.swift; sourceTree = "<group>"; };
+		D237AF6F253B35CC00161112 /* MacawChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawChartView.swift; sourceTree = "<group>"; };
+		D237AF77253B36A200161112 /* WeeklySummaryBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklySummaryBar.swift; sourceTree = "<group>"; };
+		D2625E5B253BD14B002A81A7 /* MomentDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentDetailsViewController.swift; sourceTree = "<group>"; };
+		D2FA3E89251A080700FFBF0A /* Positron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Positron.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2FA3E8C251A080700FFBF0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D2FA3E8E251A080700FFBF0A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		D2FA3E90251A080700FFBF0A /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
+		D2FA3E92251A080700FFBF0A /* DailyMomentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyMomentViewController.swift; sourceTree = "<group>"; };
+		D2FA3E95251A080700FFBF0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D2FA3E97251A080900FFBF0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D2FA3E9A251A080900FFBF0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D2FA3E9C251A080900FFBF0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D2FA3E86251A080700FFBF0A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3C4B5D991B11BA867E03459A /* Pods_Positron.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4A79C992BBE44C91497F675A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				37019C31018978F5192D2F5B /* Pods_Positron.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7F55E969C0EA7F10BAAF2E36 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6B11D8248153D56D71BFF681 /* Pods-Positron.debug.xcconfig */,
+				50292DFA5CABFBA25F895FB8 /* Pods-Positron.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		D20038C42543310A008625FA /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				D20038C525433122008625FA /* PositronApiClient.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		D20038CC2543348F008625FA /* ApiModel */ = {
+			isa = PBXGroup;
+			children = (
+				D20038CD254334A4008625FA /* MomentApiModel.swift */,
+			);
+			path = ApiModel;
+			sourceTree = "<group>";
+		};
+		D202FBA7253AF1A800763C34 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D2FA3E90251A080700FFBF0A /* SummaryViewController.swift */,
+				D2FA3E92251A080700FFBF0A /* DailyMomentViewController.swift */,
+				D2625E5B253BD14B002A81A7 /* MomentDetailsViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		D202FBA9253AF1D300763C34 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				D2FA3E97251A080900FFBF0A /* Assets.xcassets */,
+				D2FA3E94251A080700FFBF0A /* Main.storyboard */,
+				D2FA3E99251A080900FFBF0A /* LaunchScreen.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		D237AF6B253B359700161112 /* UIViews */ = {
+			isa = PBXGroup;
+			children = (
+				D202FB9F253ABEFB00763C34 /* MomentTableView.swift */,
+				D202FBA3253ACB3B00763C34 /* MomentTableViewCell.swift */,
+				D237AF6F253B35CC00161112 /* MacawChartView.swift */,
+			);
+			path = UIViews;
+			sourceTree = "<group>";
+		};
+		D237AF6D253B35AD00161112 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				D2FA3E8C251A080700FFBF0A /* AppDelegate.swift */,
+				D2FA3E8E251A080700FFBF0A /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		D237AF72253B35D400161112 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				D202FB982532E4DD00763C34 /* Util.swift */,
+				D2005568254C72CB002FED6A /* UtilDate.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		D237AF74253B360000161112 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D202FBAB253AF34C00763C34 /* Moment.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D2FA3E80251A080700FFBF0A = {
+			isa = PBXGroup;
+			children = (
+				D2FA3E8B251A080700FFBF0A /* Positron */,
+				D2FA3E8A251A080700FFBF0A /* Products */,
+				7F55E969C0EA7F10BAAF2E36 /* Pods */,
+				4A79C992BBE44C91497F675A /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D2FA3E8A251A080700FFBF0A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D2FA3E89251A080700FFBF0A /* Positron.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D2FA3E8B251A080700FFBF0A /* Positron */ = {
+			isa = PBXGroup;
+			children = (
+				D20038CC2543348F008625FA /* ApiModel */,
+				D20038C42543310A008625FA /* Network */,
+				D2FA3E9C251A080900FFBF0A /* Info.plist */,
+				D237AF6D253B35AD00161112 /* App */,
+				D202FBA7253AF1A800763C34 /* ViewController */,
+				D202FBA9253AF1D300763C34 /* Storyboard */,
+				D237AF6B253B359700161112 /* UIViews */,
+				D237AF74253B360000161112 /* Model */,
+				D237AF72253B35D400161112 /* Util */,
+				D237AF77253B36A200161112 /* WeeklySummaryBar.swift */,
+			);
+			path = Positron;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D2FA3E88251A080700FFBF0A /* Positron */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D2FA3E9F251A080900FFBF0A /* Build configuration list for PBXNativeTarget "Positron" */;
+			buildPhases = (
+				4F521D8CEE4454F6652BBAF6 /* [CP] Check Pods Manifest.lock */,
+				D2FA3E85251A080700FFBF0A /* Sources */,
+				D2FA3E86251A080700FFBF0A /* Frameworks */,
+				D2FA3E87251A080700FFBF0A /* Resources */,
+				A3DC49C17A57B7FF41025F8D /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Positron;
+			productName = Positron;
+			productReference = D2FA3E89251A080700FFBF0A /* Positron.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D2FA3E81251A080700FFBF0A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1200;
+				ORGANIZATIONNAME = "Sanip Shrestha";
+				TargetAttributes = {
+					D2FA3E88251A080700FFBF0A = {
+						CreatedOnToolsVersion = 11.3;
+					};
+				};
+			};
+			buildConfigurationList = D2FA3E84251A080700FFBF0A /* Build configuration list for PBXProject "Positron" */;
+			compatibilityVersion = "Xcode 11.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D2FA3E80251A080700FFBF0A;
+			productRefGroup = D2FA3E8A251A080700FFBF0A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D2FA3E88251A080700FFBF0A /* Positron */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D2FA3E87251A080700FFBF0A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D2FA3E9B251A080900FFBF0A /* LaunchScreen.storyboard in Resources */,
+				D2FA3E98251A080900FFBF0A /* Assets.xcassets in Resources */,
+				D2FA3E96251A080700FFBF0A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4F521D8CEE4454F6652BBAF6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Positron-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A3DC49C17A57B7FF41025F8D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Positron/Pods-Positron-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Positron/Pods-Positron-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Positron/Pods-Positron-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D2FA3E85251A080700FFBF0A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D202FBA0253ABEFB00763C34 /* MomentTableView.swift in Sources */,
+				D20038C625433122008625FA /* PositronApiClient.swift in Sources */,
+				D237AF78253B36A200161112 /* WeeklySummaryBar.swift in Sources */,
+				D2FA3E93251A080700FFBF0A /* DailyMomentViewController.swift in Sources */,
+				D2FA3E91251A080700FFBF0A /* SummaryViewController.swift in Sources */,
+				D20038CE254334A4008625FA /* MomentApiModel.swift in Sources */,
+				D237AF70253B35CC00161112 /* MacawChartView.swift in Sources */,
+				D2625E5C253BD14B002A81A7 /* MomentDetailsViewController.swift in Sources */,
+				D202FB992532E4DD00763C34 /* Util.swift in Sources */,
+				D2FA3E8D251A080700FFBF0A /* AppDelegate.swift in Sources */,
+				D2FA3E8F251A080700FFBF0A /* SceneDelegate.swift in Sources */,
+				D202FBA4253ACB3B00763C34 /* MomentTableViewCell.swift in Sources */,
+				D202FBAC253AF34C00763C34 /* Moment.swift in Sources */,
+				D2005569254C72CB002FED6A /* UtilDate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D2FA3E94251A080700FFBF0A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D2FA3E95251A080700FFBF0A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D2FA3E99251A080900FFBF0A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D2FA3E9A251A080900FFBF0A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D2FA3E9D251A080900FFBF0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D2FA3E9E251A080900FFBF0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D2FA3EA0251A080900FFBF0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6B11D8248153D56D71BFF681 /* Pods-Positron.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6XD4UEMVZ7;
+				INFOPLIST_FILE = Positron/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Personal.Positron;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D2FA3EA1251A080900FFBF0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 50292DFA5CABFBA25F895FB8 /* Pods-Positron.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6XD4UEMVZ7;
+				INFOPLIST_FILE = Positron/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = Personal.Positron;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D2FA3E84251A080700FFBF0A /* Build configuration list for PBXProject "Positron" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D2FA3E9D251A080900FFBF0A /* Debug */,
+				D2FA3E9E251A080900FFBF0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D2FA3E9F251A080900FFBF0A /* Build configuration list for PBXNativeTarget "Positron" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D2FA3EA0251A080900FFBF0A /* Debug */,
+				D2FA3EA1251A080900FFBF0A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D2FA3E81251A080700FFBF0A /* Project object */;
+}
