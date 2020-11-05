@@ -18,6 +18,7 @@
 		D237AF70253B35CC00161112 /* MacawChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D237AF6F253B35CC00161112 /* MacawChartView.swift */; };
 		D237AF78253B36A200161112 /* WeeklySummaryBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D237AF77253B36A200161112 /* WeeklySummaryBar.swift */; };
 		D2625E5C253BD14B002A81A7 /* MomentDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2625E5B253BD14B002A81A7 /* MomentDetailsViewController.swift */; };
+		D26F9F5825502948004F300F /* DailyStatTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F9F5725502948004F300F /* DailyStatTableView.swift */; };
 		D2FA3E8D251A080700FFBF0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FA3E8C251A080700FFBF0A /* AppDelegate.swift */; };
 		D2FA3E8F251A080700FFBF0A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FA3E8E251A080700FFBF0A /* SceneDelegate.swift */; };
 		D2FA3E91251A080700FFBF0A /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FA3E90251A080700FFBF0A /* SummaryViewController.swift */; };
@@ -41,6 +42,7 @@
 		D237AF6F253B35CC00161112 /* MacawChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawChartView.swift; sourceTree = "<group>"; };
 		D237AF77253B36A200161112 /* WeeklySummaryBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklySummaryBar.swift; sourceTree = "<group>"; };
 		D2625E5B253BD14B002A81A7 /* MomentDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentDetailsViewController.swift; sourceTree = "<group>"; };
+		D26F9F5725502948004F300F /* DailyStatTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyStatTableView.swift; sourceTree = "<group>"; };
 		D2FA3E89251A080700FFBF0A /* Positron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Positron.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2FA3E8C251A080700FFBF0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D2FA3E8E251A080700FFBF0A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				D202FB9F253ABEFB00763C34 /* MomentTableView.swift */,
 				D202FBA3253ACB3B00763C34 /* MomentTableViewCell.swift */,
 				D237AF6F253B35CC00161112 /* MacawChartView.swift */,
+				D26F9F5725502948004F300F /* DailyStatTableView.swift */,
 			);
 			path = UIViews;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 				D237AF70253B35CC00161112 /* MacawChartView.swift in Sources */,
 				D2625E5C253BD14B002A81A7 /* MomentDetailsViewController.swift in Sources */,
 				D202FB992532E4DD00763C34 /* Util.swift in Sources */,
+				D26F9F5825502948004F300F /* DailyStatTableView.swift in Sources */,
 				D2FA3E8D251A080700FFBF0A /* AppDelegate.swift in Sources */,
 				D2FA3E8F251A080700FFBF0A /* SceneDelegate.swift in Sources */,
 				D202FBA4253ACB3B00763C34 /* MomentTableViewCell.swift in Sources */,

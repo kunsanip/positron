@@ -15,18 +15,9 @@ public class SummaryViewController: UIViewController
     @IBOutlet weak var weeklySummaryView: MacawChartView!
     public override func viewDidLoad() {
         weeklySummaryView.contentMode = .scaleAspectFit
+        MacawChartView.playAnimation();
+
     }
     public override func viewDidAppear(_ animated: Bool) {
-        MacawChartView.playAnimation();
-        
-        GetData()
-    }
-    public func GetData()
-    {
-        AppDelegate.WebApi.GetAllMoments { (moments) in
-            for moment in moments{
-                print(moment.MomentName!)
-            }
-        }
     }
 }

@@ -57,4 +57,16 @@ public class PositronApiClient
             print(response)
         })
     }
+    
+    public func InsertMoment(moment: MomentApiModel, completion:@escaping (String)->Void)
+    {
+        AF.request("\(AppDelegate.ApiURL)/addMoment",
+                   method: .post,
+                   parameters: moment,
+                   encoder: JSONParameterEncoder.default).response { response in
+                    print("After this")
+                    debugPrint(response)
+                    completion("")
+                   }
+    }
 }

@@ -19,4 +19,16 @@ public class UtilDate
         let date = Date()
         return  formatter.string(from: date)
     }
+    
+    public static func getDayFromDate(dateString :String)-> String
+    {
+        let formatter  = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+         
+        let date = formatter.date(from: dateString)!
+        
+        let myCalendar = Calendar(identifier: .gregorian)
+        let weekDay = myCalendar.component(.day, from: date)
+        return myCalendar.veryShortWeekdaySymbols[weekDay-1]
+    }
 }

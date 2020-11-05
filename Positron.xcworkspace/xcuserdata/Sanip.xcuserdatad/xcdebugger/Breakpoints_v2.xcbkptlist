@@ -7,54 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "751C2D87-D492-4B75-AF5E-B104E2BE2824"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Positron/ViewController/SummaryViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "GetData()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "751C2D87-D492-4B75-AF5E-B104E2BE2824 - 541a9933b18fdd3c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Positron.SummaryViewController.GetData() -&gt; ()"
-                  moduleName = "Positron"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Admin/Desktop/Projects/Positron/Positron/ViewController/SummaryViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "26"
-                  endingLineNumber = "26"
-                  offsetFromSymbolStart = "26">
-               </Location>
-               <Location
-                  uuid = "751C2D87-D492-4B75-AF5E-B104E2BE2824 - af80be1b6e414b2c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Array&lt;Positron.MomentApiModel&gt;) -&gt; () in Positron.SummaryViewController.GetData() -&gt; ()"
-                  moduleName = "Positron"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Admin/Desktop/Projects/Positron/Positron/ViewController/SummaryViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "27"
-                  endingLineNumber = "27"
-                  offsetFromSymbolStart = "95">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "20EBEA16-967A-431F-A377-6E9028970380"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -81,6 +33,54 @@
             startingLineNumber = "16"
             endingLineNumber = "16"
             landmarkName = "GetAllMoments(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3A09F018-DAC1-4D44-8740-3A06D98D519D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Positron/ViewController/DailyMomentViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "335"
+            endingLineNumber = "335"
+            landmarkName = "DailyMomentViewController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "84395EE9-30B7-4C68-BE01-CFA6622E5210"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Positron/ViewController/DailyMomentViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
+            landmarkName = "handleLongGesture(sender:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "08864D11-D5D1-4062-8759-E275CB93FB87"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Positron/ApiModel/MomentApiModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "getDays()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

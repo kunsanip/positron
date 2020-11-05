@@ -59,6 +59,21 @@ public class MomentApiModel: Codable
         return ""
     }
     
+    public func getDays()->Int
+    {
+        let dateFormatter = DateFormatter()
+        var weekday: String = ""
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+        if let momentDate = MomentDate{
+            if let actualDate =  dateFormatter.date(from: momentDate){
+                return Calendar.current.component(.weekday, from: actualDate)
+            }
+        }
+        
+        return 0
+    }
+    
     public func getDateForApi() -> String
     {
         let formatter = DateFormatter()

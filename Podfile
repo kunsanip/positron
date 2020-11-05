@@ -8,5 +8,5 @@ target 'Positron' do
   # Pods for Positron
   pod "Macaw", "0.9.7"
   pod 'Alamofire', '~> 5.2'
-	
+  pod 'SVProgressHUD'	
 end
