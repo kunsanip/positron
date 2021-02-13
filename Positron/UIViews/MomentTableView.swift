@@ -40,9 +40,23 @@ public class MomentTableView: UITableView, UITableViewDataSource, UITableViewDel
         
         let cell = self.dequeueReusableCell( withIdentifier: "momentCell", for: indexPath) as! MomentTableViewCell
         
-        cell.textLabel?.text = moments[indexPath.row].MomentName
-        cell.detailTextLabel?.text =  moments[indexPath.row].getTime() //moments[indexPath.row].getTime()
+        let moment = moments[indexPath.row]
+        cell.textLabel?.text = moment.MomentName
 
+        let fullString = NSMutableAttributedString(string: "")
+        
+        if moment.AudioRecordingURL != nil && moment.AudioRecordingURL != ""
+        {
+            let image1Attachment = NSTextAttachment()
+            image1Attachment.image = UIImage(systemName: "livephoto.play")?
+                .withTintColor(UIColor.white , renderingMode: .alwaysOriginal)
+            let image1String = NSAttributedString(attachment: image1Attachment)
+            fullString.append(image1String)
+        }
+        fullString.append(NSAttributedString(string: "  " + moments[indexPath.row].getTime()))
+        
+        cell.detailTextLabel?.attributedText = fullString
+        
         cell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
         cell.detailTextLabel?.textColor = .white;
         
@@ -58,5 +72,20 @@ public class MomentTableView: UITableView, UITableViewDataSource, UITableViewDel
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {    
         vcInstance.present(MomentDetailsViewController(moment: moments[indexPath.row]), animated: true, completion: nil)
+    }
+    
+    public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let moment = moments[indexPath.row]
+            if let mt = moment.MomentID{
+                AppDelegate.WebApi.DeleteMoment(momentID: Int(mt) ?? 0) { (result) in
+                    self.vcInstance.refreshData();
+                }
+                
+            }
+            
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+        }
     }
 }

@@ -18,7 +18,6 @@ public class DailyStatTableView: UITableView, UITableViewDataSource, UITableView
         
         super.init(frame: .zero, style: .insetGrouped)
         
-        let tableviewcell = UITableViewCell()
         self.register(MomentTableViewCell.self, forCellReuseIdentifier: "dailyStatCell")
         self.delegate = self
         self.dataSource = self
@@ -31,21 +30,24 @@ public class DailyStatTableView: UITableView, UITableViewDataSource, UITableView
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
-    
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = self.dequeueReusableCell( withIdentifier: "dailyStatCell", for: indexPath)
         
-        cell.textLabel?.text = "Monkey Mind"
-        cell.detailTextLabel?.text =  "8"
+        cell.textLabel?.text = "Today's count"
+        cell.detailTextLabel?.text =  "\(vcInstance.numberOfRecord)"
         cell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
-        cell.detailTextLabel?.textColor = .white;
+        cell.detailTextLabel?.textColor = .white
         
         cell.textLabel?.font = UIFont(name: "Helvetica", size: 14)
-        cell.detailTextLabel?.font = UIFont(name: "Helvetica", size: 12)
-        
-        cell.backgroundColor  = .clear
+        cell.detailTextLabel?.font = UIFont(name: "Helvetica", size: 18)
+        cell.backgroundColor  = UIColor(red: 0.25, green: 0.28, blue: 0.34, alpha: 1)
         cell.textLabel?.textColor = .white
+        cell.detailTextLabel?.textColor = .white
+        cell.accessoryView?.backgroundColor = .white
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         
         return cell

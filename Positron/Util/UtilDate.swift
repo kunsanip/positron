@@ -31,4 +31,19 @@ public class UtilDate
         let weekDay = myCalendar.component(.day, from: date)
         return myCalendar.veryShortWeekdaySymbols[weekDay-1]
     }
+
+}
+
+extension Date {
+    func startOfWeek(using calendar: Calendar = .gregorian) -> Date {
+        calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: self))!
+    }
+    
+    func startOfMonth(using calendar: Calendar = .gregorian) -> Date {
+        calendar.date(from: calendar.dateComponents([.year, .month], from: self))!
+    }
+}
+
+extension Calendar {
+    static let gregorian = Calendar(identifier: .gregorian)
 }

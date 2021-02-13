@@ -21,7 +21,7 @@ class MomentDetailsViewController: UIViewController, UITableViewDelegate, UITabl
     {
         momentDetail = moment
         rows = ["Date", "Moment", "Recording", "Notes"]
-        value = [momentDetail.getSmallDate(), momentDetail.MomentName!, momentDetail.AudioRecordingURL!, momentDetail.TranscribedNotes ?? ""]
+        value = [momentDetail.getSmallDateString(), momentDetail.MomentName!, momentDetail.AudioRecordingURL!, momentDetail.TranscribedNotes ?? ""]
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -33,7 +33,7 @@ class MomentDetailsViewController: UIViewController, UITableViewDelegate, UITabl
         super.viewDidLoad()
         tableView = UITableView(frame: CGRect(x: 0, y: 40, width: self.view.bounds.width, height: self.view.bounds.height), style: .insetGrouped)
         view.addSubview(tableView)
-        
+
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(MomentTableViewCell.self, forCellReuseIdentifier: "momentCellNew")
@@ -68,6 +68,17 @@ class MomentDetailsViewController: UIViewController, UITableViewDelegate, UITabl
         
         cell.textLabel?.text = rows[indexPath.row]
         cell.detailTextLabel?.text = value[indexPath.row]
+        
+        if rows[indexPath.row] == "Notes"{
+            
+            let tf = UITextField(frame: CGRect(x: 20, y: 0, width: 20, height: 20))
+             tf.placeholder = rows[indexPath.row]
+             tf.font = UIFont.systemFont(ofSize: 15)
+
+
+             //cell.contentView.addSubview(tf)
+            cell.detailTextLabel?.addSubview(tf)
+        }
         
         if rows[indexPath.row] == "Recording"
         {
@@ -111,6 +122,7 @@ class MomentDetailsViewController: UIViewController, UITableViewDelegate, UITabl
         guard let url = URL.init(string: momentDetail.AudioRecordingURL ?? "") else { return }
         let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
 
+        ProgressUtil.normal()
         AF.download(
             url,
             method: .get,
@@ -118,7 +130,6 @@ class MomentDetailsViewController: UIViewController, UITableViewDelegate, UITabl
             encoding: JSONEncoding.default,
             headers: nil,
             to: destination).downloadProgress(closure: { (progress) in
-                print(progress)//progress closure
 
             }).response(completionHandler: { (DefaultDownloadResponse) in
                 do
@@ -141,6 +152,11 @@ class MomentDetailsViewController: UIViewController, UITableViewDelegate, UITabl
                     
                     print("Could not read..")
                 }
+                
+                ProgressUtil.dismiss()
             })
+    }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
     }
 }

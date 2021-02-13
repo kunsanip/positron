@@ -15,9 +15,13 @@ public class SummaryViewController: UIViewController
     @IBOutlet weak var weeklySummaryView: MacawChartView!
     public override func viewDidLoad() {
         weeklySummaryView.contentMode = .scaleAspectFit
-        MacawChartView.playAnimation();
+        MacawChartView.playAnimation()
 
     }
     public override func viewDidAppear(_ animated: Bool) {
+        MacawChartView.playAnimation()
+    }
+    public override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
     }
 }

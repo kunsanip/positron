@@ -35,6 +35,64 @@ public class PositronApiClient
         }
     }
     
+    public func Login(username: String, password: String, completion:@escaping (Bool)->Void)
+    {
+        
+        let requestURL = "\(AppDelegate.ApiURL)/login/\(username)/\(password)"
+        
+        print (requestURL)
+        
+        AF.request(requestURL).responseJSON { (response) in
+            switch response.result {
+            case .success:
+                let jsonData = response.data
+                do{
+                    let loginresult  =  try JSONDecoder().decode(ApiResponseModel.self, from: jsonData!)
+
+                    completion(loginresult.Success ?? false)
+                }catch {
+                    print("Error: \(error)")
+                    completion(false)
+                }
+                
+            case .failure(let _):
+                completion(false)
+            }
+        }
+    }
+    
+    
+    public func GetTodaysMoments(completion:@escaping ([MomentApiModel])->Void)
+    {
+        var moments = [MomentApiModel]()
+        let requestURL = "\(AppDelegate.ApiURL)/getAllMoments/\(AppDelegate.UserID)/\(AppDelegate.Password)"
+        
+        print (requestURL)
+        
+        AF.request(requestURL).responseJSON { (response) in
+            switch response.result {
+            case .success:
+                let jsonData = response.data
+                do{
+                    moments =  try JSONDecoder().decode([MomentApiModel].self, from: jsonData!)
+                    
+                    let formatter = DateFormatter()
+                    formatter.locale = Locale(identifier: "en_US_POSIX")
+                    formatter.dateFormat = "yyyy-MM-dd"
+                  
+                    let dateString = formatter.string(from: Date())
+                    
+                    completion(moments.filter{$0.getDateString() == dateString})
+                }catch {
+                    print("Error: \(error)")
+                }
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
     public func UploadFile(deviceURL : URL, fileWithName: String)
     {
         let toURL = "\(AppDelegate.ApiURL)/uploadRecording"
@@ -58,6 +116,17 @@ public class PositronApiClient
         })
     }
     
+    public func SignupUser(apiModel: SignupApiModel, completion:@escaping (String)->Void)
+    {
+        AF.request("\(AppDelegate.ApiURL)/signupUser",
+                   method: .post,
+                   parameters: apiModel,
+                   encoder: JSONParameterEncoder.default).response { response in
+                    print("After this")
+                    debugPrint(response)
+                    completion("")
+                   }
+    }
     public func InsertMoment(moment: MomentApiModel, completion:@escaping (String)->Void)
     {
         AF.request("\(AppDelegate.ApiURL)/addMoment",
@@ -69,4 +138,29 @@ public class PositronApiClient
                     completion("")
                    }
     }
+    
+    public func UpdateMoment(moment: MomentApiModel, completion:@escaping (String)->Void)
+    {
+        AF.request("\(AppDelegate.ApiURL)/updateMoment",
+                   method: .post,
+                   parameters: moment,
+                   encoder: JSONParameterEncoder.default).response { response in
+                    print("After this")
+                    debugPrint(response)
+                    completion("")
+                   }
+    }
+    
+    public func DeleteMoment(momentID : Int, completion:@escaping (String)->Void)
+    {
+        let params = ["MomentID": momentID]
+        
+        AF.request("\(AppDelegate.ApiURL)/deleteMoment",
+                   method: .delete,
+                   parameters: params,
+                   encoder: JSONParameterEncoder.default).response { response in
+                    completion(response.description)
+                   }
+    }
+    
 }

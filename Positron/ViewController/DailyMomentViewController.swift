@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import AVFoundation
 import Speech
+import ProgressHUD
 
 class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSpeechRecognizerDelegate{
     
@@ -17,7 +18,7 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
     var imageView: UIImageView!
-    var momentTable : MomentTableView!
+//    var momentTable : MomentTableView!
     var dailyTable: DailyStatTableView!
     var task: SFSpeechRecognitionTask!
 
@@ -34,19 +35,42 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
     var numberOfRecord = 0
     
     var countLabel : UILabel = UILabel()
-    
+    var refreshControl : UIRefreshControl = UIRefreshControl()
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
-        momentTable = MomentTableView(instance: self)
+        ProgressUtil.normal()
+
+//        momentTable = MomentTableView(instance: self)
         dailyTable = DailyStatTableView(instance: self)
         
+        initializeRefresh()
         initializeAudioRecord()
         initializeCircleAnimation()
         initializeRecordButton()
-        initializeMomentTable()
+//        initializeMomentTable()
         initializeDailyTable()
+    }
+    
+    override func viewDidAppear(_ animated: Bool)
+    {
+        refreshData()
+    }
+    
+    private func initializeRefresh()
+    {
+        refreshControl = UIRefreshControl()
+        refreshControl.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
+        refreshControl.tintColor = .white
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        
+//        momentTable.addSubview(refreshControl) // not required when using UITableViewController
+    }
+    
+    @objc func refresh(_ sender: AnyObject) {
+      refreshData()
     }
     
     private func initializeAudioRecord()
@@ -59,8 +83,7 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
     
     private func initializeRecordButton()
     {
-        let centre = CGPoint(x: view.center.x, y: view.center.y - 100)
-
+        let centre = CGPoint(x: view.center.x, y: view.center.y)
         let image = UIImage(systemName: "dot.circle.fill")?
             .withTintColor(UIColor(red: 0.0863, green: 0.2745, blue: 0.349, alpha: 1.0) , renderingMode: .alwaysOriginal)
         
@@ -74,10 +97,8 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
 
         countLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
         countLabel.center = centre
-
         countLabel.font = UIFont(name: "arial", size: 30)
         countLabel.textAlignment = .center
-
         countLabel.textColor = .green
         
         view.addSubview(countLabel)
@@ -86,7 +107,7 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
     
     private func initializeCircleAnimation()
     {
-        let centre = CGPoint(x: view.center.x, y: view.center.y - 100)
+        let centre = CGPoint(x: view.center.x, y: view.center.y)
         let circularPath = UIBezierPath(arcCenter: centre, radius: 100, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
 
         trackShapeLayer.path = circularPath.cgPath
@@ -108,7 +129,7 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
     
     @objc private func handleLongGesture(sender: UILongPressGestureRecognizer)
     {
-        let centre = CGPoint(x: view.center.x, y: view.center.y - 100)
+        let centre = CGPoint(x: view.center.x, y: view.center.y)
 
         print("Attempting to animate stroke.")
         let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
@@ -167,36 +188,43 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
             imageView.frame = CGRect(x: 0, y: 0, width: 220, height: 220)
             imageView.center = centre
             
-            print(self.message)
             let toURL = "\(AppDelegate.ApiURL)/uploadRecording"
-
             let moment = MomentApiModel()
-            moment.MomentName = "Recording \(moment.getDateForApi())"
+            moment.MomentName = "Moment"
             moment.MomentDate = moment.getDateForApi()
             moment.AudioRecordingURL = "Test"
             moment.TranscribedNotes = "TestNotes"
             moment.UserID = AppDelegate.UserID
-            
-            AppDelegate.WebApi.InsertMoment(moment: moment) { (result) in
-                print("success before")
-            }
-            
-            
+                        
             let deviceURL = Util.getDocumentsDirectory().appendingPathComponent(AudioFileName)
             //momentTable.moments = MomentList
             
-            self.UploadFile(deviceURL: deviceURL, toURL: toURL)
+            self.UploadFile(deviceURL: deviceURL, toURL: toURL, completion: { (url) in
+                moment.AudioRecordingURL = url
+                AppDelegate.WebApi.InsertMoment(moment: moment) { (result) in
+                    print("success before")
+                }
+            })
             
-            momentTable.reloadData()
+//            momentTable.reloadData()
             audioRecorder.stop()
             shapeLayer.removeAllAnimations()
             //transcribeAudio(url: deviceURL, moment: moment)
+        }
+        else{
+            let circularPath = UIBezierPath(arcCenter: centre, radius: 100, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
+            trackShapeLayer.path = circularPath.cgPath
+            shapeLayer.path = circularPath.cgPath
+            imageView.frame = CGRect(x: 0, y: 0, width: 220, height: 220)
+            imageView.center = centre
+            
+//            momentTable.reloadData()
         }
     }
     
     @objc private func handleTap(sender: UITapGestureRecognizer)
     {
-        let centre = CGPoint(x: view.center.x, y: view.center.y - 100)
+        let centre = CGPoint(x: view.center.x, y: view.center.y)
 
         if (sender.state == .began){
             
@@ -209,6 +237,7 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
             shapeLayer.path = circularPath.cgPath
             imageView.frame = CGRect(x: 0, y: 0, width: 180, height: 180)
             imageView.center = centre
+            imageView.backgroundColor = .clear
                 
             UIView.animate(withDuration: 1, animations: {
                 self.imageView.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
@@ -219,18 +248,20 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
                 })
             }
         }
-        else{
+        else if (sender.state == .ended){
             let circularPath = UIBezierPath(arcCenter: centre, radius: 100, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
             trackShapeLayer.path = circularPath.cgPath
             shapeLayer.path = circularPath.cgPath
             imageView.frame = CGRect(x: 0, y: 0, width: 220, height: 220)
             imageView.center = centre
+            
+            refreshData()
         }
         
         let moment = MomentApiModel()
-        moment.MomentName = "Recording \(moment.getDateForApi())"
+        moment.MomentName = "Moment"
         moment.MomentDate = moment.getDateForApi()
-        moment.AudioRecordingURL = "Test"
+        moment.AudioRecordingURL = ""
         moment.TranscribedNotes = "TestNotes"
         moment.UserID = AppDelegate.UserID
         
@@ -239,28 +270,29 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
         }
         //MomentList.append(moment)
         //momentTable.moments = MomentList
-        momentTable.reloadData()
+        refreshData()
     }
     
     private func initializeMomentTable()
     {
-        momentTable.delegate = momentTable
-        momentTable.dataSource = momentTable
-        
-        momentTable.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 90)
-        momentTable.translatesAutoresizingMaskIntoConstraints = false
-
-        view.addSubview(momentTable);
-
-        refreshData()
-        
-        momentTable.topAnchor.constraint(equalTo:imageView.safeAreaLayoutGuide.bottomAnchor, constant: 30).isActive = true
-        momentTable.leadingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        momentTable.trailingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        momentTable.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        
-        momentTable.backgroundColor = view.backgroundColor
+//        momentTable.delegate = momentTable
+//        momentTable.dataSource = momentTable
+//
+//        momentTable.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 90)
+//        momentTable.translatesAutoresizingMaskIntoConstraints = false
+//
+//        view.addSubview(momentTable);
+//
+//        refreshData()
+//
+//        momentTable.topAnchor.constraint(equalTo:imageView.safeAreaLayoutGuide.bottomAnchor, constant: 60).isActive = true
+//        momentTable.leadingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+//        momentTable.trailingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+//        momentTable.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+//
+//        momentTable.backgroundColor = view.backgroundColor
     }
+    
     private func initializeDailyTable()
     {
         dailyTable.delegate = dailyTable
@@ -276,17 +308,20 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
         dailyTable.trailingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         dailyTable.bottomAnchor.constraint(equalTo:imageView.safeAreaLayoutGuide.topAnchor).isActive = true
         
-        dailyTable.backgroundColor = UIColor.systemGray
+        dailyTable.backgroundColor = .clear
     }
 
-
-    private func refreshData()
+    public func refreshData()
     {
-        AppDelegate.WebApi.GetAllMoments { (momentsViewModel) in
-            self.momentTable.moments = momentsViewModel.sorted(by: { $0.MomentDate! > $1.MomentDate! })
+        AppDelegate.WebApi.GetTodaysMoments { (momentsViewModel) in
+//            self.momentTable.moments = momentsViewModel.sorted(by: { $0.MomentDate! > $1.MomentDate! })
+//            self.momentTable.reloadData()
 
-            self.momentTable.reloadData()
-            self.countLabel.text = ""
+            self.numberOfRecord = momentsViewModel.count
+            self.dailyTable.reloadData()
+            
+            self.refreshControl.endRefreshing()
+            ProgressUtil.dismiss()
         }
     }
     
@@ -311,7 +346,7 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
         }
     }
     
-    public func UploadFile(deviceURL : URL, toURL: String)
+    public func UploadFile(deviceURL : URL, toURL: String, completion :@escaping (String ) -> Void)
     {
         let fileName = deviceURL.lastPathComponent
         guard let audioFile: Data = try? Data (contentsOf: deviceURL) else {return}
@@ -328,8 +363,29 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
         
         }, to: toURL)
         .responseString(completionHandler: { (response) in
-            self.refreshData()
+            switch response.result {
+            case .success:
+                let jsonData = response.data
+                print(response)
+                do{
+                    let apiresponse =  try JSONDecoder().decode(ApiResponseModel.self, from: jsonData!)
+
+                    if let url = apiresponse.Data {
+                        completion(url)
+                        self.refreshData()
+                    }
+                }catch {
+                    print("Error: \(error)")
+                }
+                
+            case .failure(let error):
+                print(error)
+            }
         })
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle
+    {
+        .lightContent
+    }
 }

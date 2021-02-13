@@ -23,17 +23,15 @@ public class MacawChartView : MacawView
         
         super.init(node: MacawChartView.createBars(), coder: aDecoder)!
         self.backgroundColor = .clear
-
-        
         MacawChartView.createChart { (group) in
             super.node = group
-            
             MacawChartView.playAnimation()
         }
     }
     
     public static func createChart(completion:@escaping (Group)->Void)
     {
+        ProgressUtil.barProgress()
         createDummyData(completion: { (weeklySummaries) in
             lastSevenShows = weeklySummaries
             adjustedData   = weeklySummaries.map({$0.ViewCount / dataDivisor})
@@ -42,6 +40,7 @@ public class MacawChartView : MacawView
             items.append(createBars())
             
             completion(Group(contents: items, place: .identity))
+            ProgressUtil.dismiss()
         })
     }
     
@@ -118,22 +117,28 @@ public class MacawChartView : MacawView
         var graphData = [WeeklySummaryBar]()
         
         AppDelegate.WebApi.GetAllMoments { (moments) in
-
-            let monCount = moments.filter { $0.getDays() == 2}.count
-            let tueCount = moments.filter { $0.getDays() == 3}.count
-            let wedCount = moments.filter { $0.getDays() == 4 }.count
-            let thuCount = moments.filter { $0.getDays() == 5 }.count
-            let friCount = moments.filter { $0.getDays() == 6}.count
-            let satCount = moments.filter { $0.getDays() == 7 }.count
-            let sunCount = moments.filter { $0.getDays() == 1 }.count
+            let momentsViewModel = moments.filter({ (moment) -> Bool in
+                if let date = moment.getDate(){
+                    return date >= Date().startOfWeek()
+                }
+                return false
+            })
             
-            let one     = WeeklySummaryBar(showNumber: "Mon", viewCount: Double(monCount * 200 / 10 ))
-            let two     = WeeklySummaryBar(showNumber: "Tue", viewCount: Double(tueCount * 200 / 10 ))
-            let three   = WeeklySummaryBar(showNumber: "Wed", viewCount: Double(wedCount * 200 / 10 ))
-            let four    = WeeklySummaryBar(showNumber: "Thu", viewCount: Double(thuCount * 200 / 10 ))
-            let five    = WeeklySummaryBar(showNumber: "Fri", viewCount: Double(friCount * 200 / 10 ))
-            let six     = WeeklySummaryBar(showNumber: "Sat", viewCount: Double(satCount * 200 / 10 ))
-            let seven   = WeeklySummaryBar(showNumber: "Sun", viewCount: Double(sunCount * 200 / 10 ))
+            let monCount = momentsViewModel.filter { $0.getDays() == 2}.count
+            let tueCount = momentsViewModel.filter { $0.getDays() == 3}.count
+            let wedCount = momentsViewModel.filter { $0.getDays() == 4 }.count
+            let thuCount = momentsViewModel.filter { $0.getDays() == 5 }.count
+            let friCount = momentsViewModel.filter { $0.getDays() == 6}.count
+            let satCount = momentsViewModel.filter { $0.getDays() == 7 }.count
+            let sunCount = momentsViewModel.filter { $0.getDays() == 1 }.count
+            
+            let one     = WeeklySummaryBar(showNumber: "Sun", viewCount: Double(sunCount * 200 / 10 ))
+            let two     = WeeklySummaryBar(showNumber: "Mon", viewCount: Double(monCount * 200 / 10 ))
+            let three   = WeeklySummaryBar(showNumber: "Tue", viewCount: Double(tueCount * 200 / 10 ))
+            let four    = WeeklySummaryBar(showNumber: "Wed", viewCount: Double(wedCount * 200 / 10 ))
+            let five    = WeeklySummaryBar(showNumber: "Thu", viewCount: Double(thuCount * 200 / 10 ))
+            let six     = WeeklySummaryBar(showNumber: "Fri", viewCount: Double(friCount * 200 / 10 ))
+            let seven   = WeeklySummaryBar(showNumber: "Sat", viewCount: Double(satCount * 200 / 10 ))
             
             graphData = [one, two, three, four, five, six, seven]
             

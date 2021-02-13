@@ -8,9 +8,9 @@
 
 import Foundation
 
-
 public class MomentApiModel: Codable
 {
+    public var MomentID : String?
     public var MomentName : String?
     public var AudioRecordingURL : String?
     public var TranscribedNotes : String?
@@ -19,12 +19,42 @@ public class MomentApiModel: Codable
     
     enum CodingKeys: String, CodingKey
     {
-        case  MomentName = "MomentName"
-        case  AudioRecordingURL = "AudioRecordingURL"
-        case  TranscribedNotes = "TranscribedNotes"
-        case  MomentDate = "MomentDate"
-        case  UserID = "UserID"
+        case MomentID = "MomentID"
+        case MomentName = "MomentName"
+        case AudioRecordingURL = "AudioRecordingURL"
+        case TranscribedNotes = "TranscribedNotes"
+        case MomentDate = "MomentDate"
+        case UserID = "UserID"
     }
+    
+    public func getDate() -> Date?
+    {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        if let convMomentDate = formatter.date(from: MomentDate!)
+        {
+            return convMomentDate
+        }
+        
+        return nil
+    }
+    
+    public func getDateString() -> String
+    {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        if let convMomentDate = formatter.date(from: MomentDate!)
+        {
+            formatter.dateFormat = "yyyy-MM-dd"
+            
+            return formatter.string(from: convMomentDate)
+        }
+        
+        return ""
+    }
+    
     
     public func getTime() -> String
     {
@@ -43,7 +73,7 @@ public class MomentApiModel: Codable
         return ""
     }
     
-    public func getSmallDate() -> String
+    public func getSmallDateString() -> String
     {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -62,7 +92,6 @@ public class MomentApiModel: Codable
     public func getDays()->Int
     {
         let dateFormatter = DateFormatter()
-        var weekday: String = ""
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
 
         if let momentDate = MomentDate{
@@ -82,6 +111,7 @@ public class MomentApiModel: Codable
         
         return formatter.string(from: Date())
     }
+    
     public func listPropertiesWithValues(reflect: Mirror? = nil) ->  String {
         let mirror = reflect ?? Mirror(reflecting: self)
         
