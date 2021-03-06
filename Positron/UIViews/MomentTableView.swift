@@ -70,8 +70,9 @@ public class MomentTableView: UITableView, UITableViewDataSource, UITableViewDel
         return cell
     }
     
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {    
-        vcInstance.present(MomentDetailsViewController(moment: moments[indexPath.row]), animated: true, completion: nil)
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        vcInstance.navigationController?.pushViewController(MomentInfoViewController(momentApiModel: moments[indexPath.row]), animated: true)
     }
     
     public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -81,7 +82,6 @@ public class MomentTableView: UITableView, UITableViewDataSource, UITableViewDel
                 AppDelegate.WebApi.DeleteMoment(momentID: Int(mt) ?? 0) { (result) in
                     self.vcInstance.refreshData();
                 }
-                
             }
             
         } else if editingStyle == .insert {

@@ -94,6 +94,27 @@ class MomentDetailsViewController: UIViewController, UITableViewDelegate, UITabl
         return cell
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let editAction = UITableViewRowAction(style: .default, title: "Edit", handler: { (action, indexPath) in
+            let alert = UIAlertController(title: "", message: "Edit list item", preferredStyle: .alert)
+            alert.addTextField(configurationHandler: { (textField) in
+                textField.text = self.value[indexPath.row]
+            })
+            alert.addAction(UIAlertAction(title: "Update", style: .default, handler: { (updateAction) in
+                self.value[indexPath.row] = alert.textFields!.first!.text!
+                self.tableView.reloadRows(at: [indexPath], with: .fade)
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(alert, animated: false)
+        })
+
+        return [editAction]
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if rows[indexPath.row] == "Recording" && value[indexPath.row] != ""
         {
@@ -102,19 +123,11 @@ class MomentDetailsViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if rows[indexPath.row] == "Notes"{
-            return 120
-        }
-        
         return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        if rows[indexPath.row] == "Notes"{
-            return 120
-        }
-        return UITableView.automaticDimension
+        return 60
     }
     
     @objc func playAudio() {
@@ -156,6 +169,7 @@ class MomentDetailsViewController: UIViewController, UITableViewDelegate, UITabl
                 ProgressUtil.dismiss()
             })
     }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }

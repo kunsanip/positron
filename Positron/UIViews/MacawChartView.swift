@@ -20,21 +20,25 @@ public class MacawChartView : MacawView
     static var animation : [Animation]  = []
     
     required init(coder aDecoder: NSCoder) {
-        
         super.init(node: MacawChartView.createBars(), coder: aDecoder)!
         self.backgroundColor = .clear
-        MacawChartView.createChart { (group) in
+    }
+    
+    public func refreshData(viewby: SummaryViewBy)
+    {
+        MacawChartView.createChart(viewby: viewby) { (group) in
             super.node = group
             MacawChartView.playAnimation()
         }
     }
     
-    public static func createChart(completion:@escaping (Group)->Void)
+    public static func createChart(viewby:SummaryViewBy, completion:@escaping (Group)->Void)
     {
         ProgressUtil.barProgress()
-        createDummyData(completion: { (weeklySummaries) in
+        
+        createWeeklyData(viewby: viewby, completion: { (weeklySummaries) in
             lastSevenShows = weeklySummaries
-            adjustedData   = weeklySummaries.map({$0.ViewCount / dataDivisor})
+            adjustedData   = weeklySummaries.map({$0.CalculatedCount / dataDivisor})
             
             var items: [Node] = addYAxisItem() + addXAxisItem()
             items.append(createBars())
@@ -78,11 +82,12 @@ public class MacawChartView : MacawView
         {
             let x = Double(i * 50)
             let valueText = Text(text: "\(lastSevenShows[i - 1].ShowNumber)",align: .max, baseline: .mid, place: .move(x, chartBaseY + 15) )
-  
+            let numberText = Text(text: "\(lastSevenShows[i - 1].TotalCount)",align: .max, baseline: .mid, place: .move(x, -30) )
             valueText.fill = Color.white
+            numberText.fill = Color.orange
             
             newNodes.append(valueText)
-
+            newNodes.append(numberText)
         }
         
         let xAxis = Line(x1: 0, y1: chartBaseY, x2: lineWidth, y2: chartBaseY).stroke(color: Color.white.with(a: 0.25))
@@ -112,14 +117,42 @@ public class MacawChartView : MacawView
         animation.combine().play()
     }
     
-    private static func createDummyData(completion:@escaping ([WeeklySummaryBar])->Void)
+    private static func createWeeklyData(viewby: SummaryViewBy, completion:@escaping ([WeeklySummaryBar])->Void)
     {
         var graphData = [WeeklySummaryBar]()
+        let cal = Calendar.current
+        var comps = cal.dateComponents([.weekOfYear, .yearForWeekOfYear], from: Date())
+        comps.weekday = 3// Monday
+        
+        var startDate = cal.date(from: comps)!
+        var thisweek = Calendar.current.date(byAdding: .weekOfYear, value: -1, to: startDate)!
+        print(startDate)
+        
+        if (viewby == .thisweek)
+        {
+            startDate = thisweek
+            print(startDate)
+        }
+        else if (viewby == .lastweek)
+        {
+            startDate = Calendar.current.date(byAdding: .weekOfYear, value: -2, to: startDate)!
+            print(startDate)
+        }
+        else if (viewby == .thismonth)
+        {
+            let calendar = NSCalendar.current
+            let components = calendar.dateComponents([.year, .month], from: Date())
+            startDate = calendar.date(from: components)!
+        }
         
         AppDelegate.WebApi.GetAllMoments { (moments) in
             let momentsViewModel = moments.filter({ (moment) -> Bool in
                 if let date = moment.getDate(){
-                    return date >= Date().startOfWeek()
+                    if (viewby == .lastweek)
+                    {
+                        return date >= startDate && date < thisweek
+                    }
+                    return date >= startDate
                 }
                 return false
             })
@@ -132,15 +165,15 @@ public class MacawChartView : MacawView
             let satCount = momentsViewModel.filter { $0.getDays() == 7 }.count
             let sunCount = momentsViewModel.filter { $0.getDays() == 1 }.count
             
-            let one     = WeeklySummaryBar(showNumber: "Sun", viewCount: Double(sunCount * 200 / 10 ))
-            let two     = WeeklySummaryBar(showNumber: "Mon", viewCount: Double(monCount * 200 / 10 ))
-            let three   = WeeklySummaryBar(showNumber: "Tue", viewCount: Double(tueCount * 200 / 10 ))
-            let four    = WeeklySummaryBar(showNumber: "Wed", viewCount: Double(wedCount * 200 / 10 ))
-            let five    = WeeklySummaryBar(showNumber: "Thu", viewCount: Double(thuCount * 200 / 10 ))
-            let six     = WeeklySummaryBar(showNumber: "Fri", viewCount: Double(friCount * 200 / 10 ))
-            let seven   = WeeklySummaryBar(showNumber: "Sat", viewCount: Double(satCount * 200 / 10 ))
+            let one     = WeeklySummaryBar(showNumber: "Sun", calculatedCount: Double(sunCount * 200 / 10 ), totalCount:  sunCount)
+            let two     = WeeklySummaryBar(showNumber: "Mon", calculatedCount: Double(monCount * 200 / 10 ), totalCount:  monCount)
+            let three   = WeeklySummaryBar(showNumber: "Tue", calculatedCount: Double(tueCount * 200 / 10 ), totalCount:  tueCount)
+            let four    = WeeklySummaryBar(showNumber: "Wed", calculatedCount: Double(wedCount * 200 / 10 ), totalCount:  wedCount)
+            let five    = WeeklySummaryBar(showNumber: "Thu", calculatedCount: Double(thuCount * 200 / 10 ), totalCount:  thuCount)
+            let six     = WeeklySummaryBar(showNumber: "Fri", calculatedCount: Double(friCount * 200 / 10 ), totalCount:  friCount)
+            let seven   = WeeklySummaryBar(showNumber: "Sat", calculatedCount: Double(satCount * 200 / 10 ), totalCount:  satCount)
             
-            graphData = [one, two, three, four, five, six, seven]
+            graphData = [two, three, four, five, six, seven, one]
             
             completion(graphData)
         }

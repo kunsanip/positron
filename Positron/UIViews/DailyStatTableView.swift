@@ -52,4 +52,10 @@ public class DailyStatTableView: UITableView, UITableViewDataSource, UITableView
         
         return cell
     }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let tabBarController = self.window!.rootViewController as? UITabBarController {
+                tabBarController.selectedIndex = 0
+            }
+    }
 }

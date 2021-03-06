@@ -20,6 +20,15 @@ public class UtilDate
         return  formatter.string(from: date)
     }
     
+    public static func getUrlFriendlyDateString(date: Date) -> String
+    {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "dd-MM-yyyy"
+        
+        return  formatter.string(from: date)
+    }
+    
     public static func getDayFromDate(dateString :String)-> String
     {
         let formatter  = DateFormatter()

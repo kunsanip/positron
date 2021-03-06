@@ -18,7 +18,6 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
     var imageView: UIImageView!
-//    var momentTable : MomentTableView!
     var dailyTable: DailyStatTableView!
     var task: SFSpeechRecognitionTask!
 
@@ -42,14 +41,12 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
         
         ProgressUtil.normal()
 
-//        momentTable = MomentTableView(instance: self)
         dailyTable = DailyStatTableView(instance: self)
         
         initializeRefresh()
         initializeAudioRecord()
         initializeCircleAnimation()
         initializeRecordButton()
-//        initializeMomentTable()
         initializeDailyTable()
     }
     
@@ -65,8 +62,6 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
         refreshControl.tintColor = .white
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
-        
-//        momentTable.addSubview(refreshControl) // not required when using UITableViewController
     }
     
     @objc func refresh(_ sender: AnyObject) {
@@ -154,7 +149,7 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
                     self.imageView.transform = CGAffineTransform.identity
                 })
             }
-            // startSpeechRecognization()
+            //startSpeechRecognition()
             basicAnimation.toValue = 1
             basicAnimation.duration = 30
             basicAnimation.fillMode = CAMediaTimingFillMode.forwards
@@ -189,37 +184,37 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
             imageView.center = centre
             
             let toURL = "\(AppDelegate.ApiURL)/uploadRecording"
-            let moment = MomentApiModel()
+            var moment = MomentApiModel()
             moment.MomentName = "Moment"
             moment.MomentDate = moment.getDateForApi()
-            moment.AudioRecordingURL = "Test"
-            moment.TranscribedNotes = "TestNotes"
+            moment.AudioRecordingURL = ""
+            moment.TranscribedNotes = ""
             moment.UserID = AppDelegate.UserID
-                        
+
             let deviceURL = Util.getDocumentsDirectory().appendingPathComponent(AudioFileName)
             //momentTable.moments = MomentList
             
+            ProgressUtil.barProgress()
             self.UploadFile(deviceURL: deviceURL, toURL: toURL, completion: { (url) in
                 moment.AudioRecordingURL = url
-                AppDelegate.WebApi.InsertMoment(moment: moment) { (result) in
-                    print("success before")
-                }
+                self.audioRecorder.stop()
+                self.transcribeAudio(url: deviceURL) { (result) in
+                    moment.TranscribedNotes = result
+                    
+                    AppDelegate.WebApi.InsertMoment(moment: moment) { (insertResult) in
+                        
+                    }}
+                ProgressUtil.dismiss()
             })
-            
-//            momentTable.reloadData()
-            audioRecorder.stop()
+
             shapeLayer.removeAllAnimations()
-            //transcribeAudio(url: deviceURL, moment: moment)
         }
-        else{
-            let circularPath = UIBezierPath(arcCenter: centre, radius: 100, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
-            trackShapeLayer.path = circularPath.cgPath
-            shapeLayer.path = circularPath.cgPath
-            imageView.frame = CGRect(x: 0, y: 0, width: 220, height: 220)
-            imageView.center = centre
-            
-//            momentTable.reloadData()
-        }
+    }
+    
+    private func startSpeechRecognition()
+    {
+        guard request != nil else { fatalError("Unable to create a SFSpeechAudioBufferRecognitionRequest object") }
+        request.shouldReportPartialResults = true
     }
     
     @objc private func handleTap(sender: UITapGestureRecognizer)
@@ -262,35 +257,14 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
         moment.MomentName = "Moment"
         moment.MomentDate = moment.getDateForApi()
         moment.AudioRecordingURL = ""
-        moment.TranscribedNotes = "TestNotes"
+        moment.TranscribedNotes = ""
         moment.UserID = AppDelegate.UserID
         
         AppDelegate.WebApi.InsertMoment(moment: moment) { (result) in
             print("success before")
         }
-        //MomentList.append(moment)
-        //momentTable.moments = MomentList
+        
         refreshData()
-    }
-    
-    private func initializeMomentTable()
-    {
-//        momentTable.delegate = momentTable
-//        momentTable.dataSource = momentTable
-//
-//        momentTable.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 90)
-//        momentTable.translatesAutoresizingMaskIntoConstraints = false
-//
-//        view.addSubview(momentTable);
-//
-//        refreshData()
-//
-//        momentTable.topAnchor.constraint(equalTo:imageView.safeAreaLayoutGuide.bottomAnchor, constant: 60).isActive = true
-//        momentTable.leadingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-//        momentTable.trailingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-//        momentTable.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-//
-//        momentTable.backgroundColor = view.backgroundColor
     }
     
     private func initializeDailyTable()
@@ -314,9 +288,6 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
     public func refreshData()
     {
         AppDelegate.WebApi.GetTodaysMoments { (momentsViewModel) in
-//            self.momentTable.moments = momentsViewModel.sorted(by: { $0.MomentDate! > $1.MomentDate! })
-//            self.momentTable.reloadData()
-
             self.numberOfRecord = momentsViewModel.count
             self.dailyTable.reloadData()
             
@@ -325,7 +296,7 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
         }
     }
     
-    private func transcribeAudio(url: URL, moment: Moment)
+    private func transcribeAudio(url: URL, completion :@escaping (String ) -> Void)
     {
         let recognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))
         let request = SFSpeechURLRecognitionRequest(url: url)
@@ -337,9 +308,11 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
             recognizer?.recognitionTask(with: request) { result, error in
                 guard error == nil else { print("Error: \(error!)"); return }
                 guard let result = result else { print("No result!"); return }
-
+ 
+                if result.isFinal{
                 let resultTranscription = (result.bestTranscription.formattedString)
-                moment.TranscribedNotes = resultTranscription
+                    completion(resultTranscription);
+                }
             }
         } else {
             print ("Device doesn't support speech recognition")

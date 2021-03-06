@@ -16,16 +16,15 @@
 		D202FBA4253ACB3B00763C34 /* MomentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D202FBA3253ACB3B00763C34 /* MomentTableViewCell.swift */; };
 		D202FBAC253AF34C00763C34 /* Moment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D202FBAB253AF34C00763C34 /* Moment.swift */; };
 		D236A95A25BC210C00F5A7FD /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D236A95925BC210B00F5A7FD /* SignInViewController.swift */; };
-		D236A95D25BC299600F5A7FD /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D236A95C25BC299600F5A7FD /* NavigationViewController.swift */; };
 		D236A96025C01DD000F5A7FD /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D236A95F25C01DCF00F5A7FD /* ProfileViewController.swift */; };
 		D236A96325C02AC400F5A7FD /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D236A96225C02AC300F5A7FD /* SignUpViewController.swift */; };
 		D236A96925D75C3200F5A7FD /* SignupApiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D236A96825D75C3100F5A7FD /* SignupApiModel.swift */; };
+		D236A97225D7889A00F5A7FD /* MomentInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D236A97125D7889A00F5A7FD /* MomentInfoViewController.swift */; };
 		D237AF70253B35CC00161112 /* MacawChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D237AF6F253B35CC00161112 /* MacawChartView.swift */; };
 		D237AF78253B36A200161112 /* WeeklySummaryBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D237AF77253B36A200161112 /* WeeklySummaryBar.swift */; };
-		D2625E5C253BD14B002A81A7 /* MomentDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2625E5B253BD14B002A81A7 /* MomentDetailsViewController.swift */; };
 		D26F9F5825502948004F300F /* DailyStatTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F9F5725502948004F300F /* DailyStatTableView.swift */; };
 		D26F9F7C2553F5B4004F300F /* ProgressUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F9F7B2553F5B4004F300F /* ProgressUtil.swift */; };
-		D26F9F7F25541305004F300F /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F9F7E25541305004F300F /* DiaryViewController.swift */; };
+		D26F9F7F25541305004F300F /* JournalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F9F7E25541305004F300F /* JournalViewController.swift */; };
 		D26F9F8925564BE1004F300F /* ApiResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F9F8825564BE0004F300F /* ApiResponseModel.swift */; };
 		D26F9F8C255660F0004F300F /* PositronColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F9F8B255660EF004F300F /* PositronColor.swift */; };
 		D2FA3E8D251A080700FFBF0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FA3E8C251A080700FFBF0A /* AppDelegate.swift */; };
@@ -49,16 +48,15 @@
 		D202FBA3253ACB3B00763C34 /* MomentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentTableViewCell.swift; sourceTree = "<group>"; };
 		D202FBAB253AF34C00763C34 /* Moment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Moment.swift; sourceTree = "<group>"; };
 		D236A95925BC210B00F5A7FD /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
-		D236A95C25BC299600F5A7FD /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		D236A95F25C01DCF00F5A7FD /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		D236A96225C02AC300F5A7FD /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		D236A96825D75C3100F5A7FD /* SignupApiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupApiModel.swift; sourceTree = "<group>"; };
+		D236A97125D7889A00F5A7FD /* MomentInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentInfoViewController.swift; sourceTree = "<group>"; };
 		D237AF6F253B35CC00161112 /* MacawChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacawChartView.swift; sourceTree = "<group>"; };
 		D237AF77253B36A200161112 /* WeeklySummaryBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklySummaryBar.swift; sourceTree = "<group>"; };
-		D2625E5B253BD14B002A81A7 /* MomentDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentDetailsViewController.swift; sourceTree = "<group>"; };
 		D26F9F5725502948004F300F /* DailyStatTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyStatTableView.swift; sourceTree = "<group>"; };
 		D26F9F7B2553F5B4004F300F /* ProgressUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressUtil.swift; sourceTree = "<group>"; };
-		D26F9F7E25541305004F300F /* DiaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
+		D26F9F7E25541305004F300F /* JournalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalViewController.swift; sourceTree = "<group>"; };
 		D26F9F8825564BE0004F300F /* ApiResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponseModel.swift; sourceTree = "<group>"; };
 		D26F9F8B255660EF004F300F /* PositronColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositronColor.swift; sourceTree = "<group>"; };
 		D2FA3E89251A080700FFBF0A /* Positron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Positron.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,12 +121,12 @@
 			isa = PBXGroup;
 			children = (
 				D2FA3E90251A080700FFBF0A /* SummaryViewController.swift */,
-				D2625E5B253BD14B002A81A7 /* MomentDetailsViewController.swift */,
 				D2FA3E92251A080700FFBF0A /* DailyMomentViewController.swift */,
-				D26F9F7E25541305004F300F /* DiaryViewController.swift */,
+				D26F9F7E25541305004F300F /* JournalViewController.swift */,
 				D236A95925BC210B00F5A7FD /* SignInViewController.swift */,
 				D236A95F25C01DCF00F5A7FD /* ProfileViewController.swift */,
 				D236A96225C02AC300F5A7FD /* SignUpViewController.swift */,
+				D236A97125D7889A00F5A7FD /* MomentInfoViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -213,7 +211,6 @@
 				D237AF72253B35D400161112 /* Util */,
 				D237AF77253B36A200161112 /* WeeklySummaryBar.swift */,
 				D26F9F7B2553F5B4004F300F /* ProgressUtil.swift */,
-				D236A95C25BC299600F5A7FD /* NavigationViewController.swift */,
 			);
 			path = Positron;
 			sourceTree = "<group>";
@@ -345,12 +342,11 @@
 				D20038CE254334A4008625FA /* MomentApiModel.swift in Sources */,
 				D237AF70253B35CC00161112 /* MacawChartView.swift in Sources */,
 				D236A95A25BC210C00F5A7FD /* SignInViewController.swift in Sources */,
-				D2625E5C253BD14B002A81A7 /* MomentDetailsViewController.swift in Sources */,
 				D202FB992532E4DD00763C34 /* Util.swift in Sources */,
 				D26F9F5825502948004F300F /* DailyStatTableView.swift in Sources */,
-				D236A95D25BC299600F5A7FD /* NavigationViewController.swift in Sources */,
+				D236A97225D7889A00F5A7FD /* MomentInfoViewController.swift in Sources */,
 				D2FA3E8D251A080700FFBF0A /* AppDelegate.swift in Sources */,
-				D26F9F7F25541305004F300F /* DiaryViewController.swift in Sources */,
+				D26F9F7F25541305004F300F /* JournalViewController.swift in Sources */,
 				D2FA3E8F251A080700FFBF0A /* SceneDelegate.swift in Sources */,
 				D202FBA4253ACB3B00763C34 /* MomentTableViewCell.swift in Sources */,
 				D202FBAC253AF34C00763C34 /* Moment.swift in Sources */,

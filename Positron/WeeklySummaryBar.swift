@@ -11,11 +11,13 @@ import Foundation
 public struct WeeklySummaryBar
 {
     public var ShowNumber : String
-    public var ViewCount : Double
+    public var CalculatedCount : Double
+    public var TotalCount: Int
     
-    init(showNumber: String, viewCount : Double)
+    init(showNumber: String, calculatedCount : Double, totalCount: Int)
     {
         ShowNumber = showNumber
-        ViewCount = viewCount
+        CalculatedCount = calculatedCount
+        TotalCount = totalCount
     }
 }

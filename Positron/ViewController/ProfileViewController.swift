@@ -11,35 +11,39 @@ import UIKit
 class ProfileViewController: UIViewController {
 
     @IBOutlet weak var Username: UITextView!
+    @IBOutlet weak var summaryTableViewCell: UITableViewCell!
     override func viewDidLoad() {
         super.viewDidLoad()
         Username.text = AppDelegate.UserID
+        let image = UIImage(systemName: "chart.bar.xaxis")?
+            .withTintColor(UIColor.white , renderingMode: .alwaysOriginal)
+        
+        summaryTableViewCell.imageView?.image = image
+        summaryTableViewCell.textLabel?.text = "View summary"
+        summaryTableViewCell.textLabel?.textColor = .white
+        summaryTableViewCell.accessoryType = .disclosureIndicator
+        summaryTableViewCell.tintColor = .white
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapCell))
+        summaryTableViewCell.addGestureRecognizer(tapGesture)
     }
     
+    @objc func tapCell()
+    {
+        self.navigationController?.pushViewController(SummaryViewController(), animated: true)
+    }
+
     @IBAction func LogOutPressed(_ sender: Any) {
-        AppDelegate.UserID = ""
-        AppDelegate.Password = ""
 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let signInViewController = storyboard.instantiateViewController(identifier: "Initial")
-        
-        let defaults = UserDefaults.standard
-        defaults.set("", forKey: "username")
-        defaults.set("", forKey: "password")
+
+        UserDefaults.standard.removeObject(forKey: "username")
+        UserDefaults.standard.removeObject(forKey: "password")
+        UserDefaults.standard.synchronize()
         
         // This is to get the SceneDelegate object from your view controller
         // then call the change root view controller function to change to main tab bar
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(signInViewController)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

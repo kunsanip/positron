@@ -15,7 +15,7 @@ public enum DiaryEnum: Int {
     case all        = 3
 }
 
-class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class JournalViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var diarySegment: UISegmentedControl!
     @IBOutlet weak var diaryTable: UITableView!
@@ -35,9 +35,10 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
     public func intialiseView()
     {
         let font = UIFont.systemFont(ofSize: 10)
-
-        UISegmentedControl.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: PositronColor.primary], for: .selected)
-        UISegmentedControl.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: font], for: .normal)
+       
+        diarySegment.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: PositronColor.primary], for: .selected)
+        diarySegment.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: font], for: .normal)
+        diarySegment.selectedSegmentTintColor = .white
         
         refreshControl = UIRefreshControl()
         refreshControl.tintColor = .white
@@ -54,7 +55,7 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
       refreshData()
     }
     
-    private func refreshData()
+    public func refreshData()
     {
         ProgressUtil.normal()
         AppDelegate.WebApi.GetAllMoments { (momentsViewModel) in
@@ -110,9 +111,24 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell( withIdentifier: "diaryCell", for: indexPath) as! MomentTableViewCell
         
-        cell.textLabel?.text = momentDiary[indexPath.row].MomentName
-        cell.detailTextLabel?.text =  momentDiary[indexPath.row].getTime() //moments[indexPath.row].getTime()
+        let moment = momentDiary[indexPath.row]
 
+        cell.textLabel?.text = moment.MomentName
+        cell.detailTextLabel?.text =  moment.getTime() //moments[indexPath.row].getTime()
+
+        let fullString = NSMutableAttributedString(string: "")
+        
+        if moment.AudioRecordingURL != nil && moment.AudioRecordingURL != ""
+        {
+            let image1Attachment = NSTextAttachment()
+            image1Attachment.image = UIImage(systemName: "livephoto.play")?
+                .withTintColor(UIColor.white , renderingMode: .alwaysOriginal)
+            let image1String = NSAttributedString(attachment: image1Attachment)
+            fullString.append(image1String)
+        }
+        fullString.append(NSAttributedString(string: "  " + moment.getTime()))
+        
+        cell.detailTextLabel?.attributedText = fullString
         cell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
         cell.detailTextLabel?.textColor = .white;
         
@@ -127,11 +143,16 @@ class DiaryViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.present(MomentDetailsViewController(moment: momentDiary[indexPath.row]), animated: true, completion: nil)
+        // Safe Present
+        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "momentInfo") as? MomentInfoViewController
+        {
+            vc.InstanceVC = self
+            present(vc, animated: true, completion: nil)
+            vc.setup(vm: momentDiary[indexPath.row])
+        }
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
-    
 }

@@ -8,8 +8,8 @@
 
 import UIKit
 
-class SignUpViewController: UIViewController {
-
+class SignUpViewController: UIViewController, UITextFieldDelegate {
+    
     @IBOutlet weak var emailAddress: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var reenteredPassword: UITextField!
@@ -19,10 +19,55 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var ErrorMessage: UITextView!
     @IBOutlet weak var dob: UITextField!
     
+    @IBOutlet var signupView: UIView!
+    var activeTextField = UITextField()
+    var datePicker = UIDatePicker()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        emailAddress.delegate = self
+        firstName.delegate = self
+        lastName.delegate = self
+        password.delegate = self
+        reenteredPassword.delegate = self
+        phone.delegate = self
+        dob.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        initialiseDatePicker()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
+        
+        // 2. add the gesture recognizer to a view
+        signupView.addGestureRecognizer(tapGesture)
+    }
+    
+    // 3. this method is called when a tap is recognized
+    @objc func handleTap(sender: UITapGestureRecognizer) {
+        self.activeTextField.resignFirstResponder()
+    }
+    func initialiseDatePicker()
+    {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        //bar button
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donePressed))
+        toolbar.setItems([doneButton], animated: true)
+        
+        datePicker.center = dob.center
+        datePicker.datePickerMode = .date
+        datePicker.preferredDatePickerStyle = .wheels
+        dob.inputAccessoryView = toolbar
+        dob.inputView = datePicker
+    }
+    @objc func donePressed()
+    {
+        dob.text = UtilDate.getUrlFriendlyDateString(date: datePicker.date)
+        self.view.endEditing(true)
     }
     @IBAction func signUp(_ sender: Any) {
         
@@ -42,7 +87,6 @@ class SignUpViewController: UIViewController {
             AppDelegate.WebApi.SignupUser(apiModel: signupDetail) { (result) in
                 print(result)
             }
-            
         }
     }
     
@@ -64,7 +108,7 @@ class SignUpViewController: UIViewController {
         {
             message += "The email you've entered is invalid.\n"
         }
-        if (phone.text != "" && !(validatePhone(phone.text ?? "")))
+        if (phone.text != "")
         {
             message += "Invalid phone number.\n"
         }
@@ -90,6 +134,51 @@ class SignUpViewController: UIViewController {
     @IBAction func SignInButton(_ sender: Any) {
         navigationController?.popViewController(animated: true)
         dismiss(animated: true, completion: nil)
-
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        activeTextField = textField
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.switchBasedNextTextField(textField)
+        return true
+    }
+    
+    private func switchBasedNextTextField(_ textField: UITextField) {
+        switch textField {
+        case self.firstName:
+            self.lastName.becomeFirstResponder()
+        case self.lastName:
+            self.dob.becomeFirstResponder()
+        case self.dob:
+            self.emailAddress.becomeFirstResponder()
+        case self.emailAddress:
+            self.password.becomeFirstResponder()
+        case self.password:
+            self.reenteredPassword.becomeFirstResponder()
+        case self.reenteredPassword:
+            self.phone.becomeFirstResponder()
+        default:
+            self.phone.resignFirstResponder()
+        }
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+//                self.view.frame.origin.y -= keyboardSize.height
+                self.view.layoutIfNeeded()
+                
+                UIView.animate(withDuration: 0.25, animations: {
+                    
+                    self.view.layoutIfNeeded()
+                    self.view.frame.origin.y = keyboardSize.height + 20 -  self.activeTextField.frame.origin.y
+                })
+            }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
     }
 }

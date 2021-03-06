@@ -32,6 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 AppDelegate.Password = loggedPassword
                 
                 let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
+                (mainTabBarController as! UITabBarController).selectedIndex = 1
                 window?.rootViewController = mainTabBarController
             }
             else{

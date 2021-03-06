@@ -55,12 +55,11 @@ public class PositronApiClient
                     completion(false)
                 }
                 
-            case .failure(let _):
+            case .failure( _):
                 completion(false)
             }
         }
     }
-    
     
     public func GetTodaysMoments(completion:@escaping ([MomentApiModel])->Void)
     {
@@ -150,7 +149,7 @@ public class PositronApiClient
                     completion("")
                    }
     }
-    
+
     public func DeleteMoment(momentID : Int, completion:@escaping (String)->Void)
     {
         let params = ["MomentID": momentID]
