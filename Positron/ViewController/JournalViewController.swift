@@ -20,19 +20,19 @@ class JournalViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var diarySegment: UISegmentedControl!
     @IBOutlet weak var diaryTable: UITableView!
     var refreshControl: UIRefreshControl!
-    var momentDiary = [MomentApiModel]()
+    var sections = [MomentGroup]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         diaryTable.register(MomentTableViewCell.self, forCellReuseIdentifier: "diaryCell")
-        intialiseView()
+        initialiseView()
         refreshData()
     }
     override func viewDidAppear(_ animated: Bool) {
         refreshData();
     }
     
-    public func intialiseView()
+    public func initialiseView()
     {
         let font = UIFont.systemFont(ofSize: 10)
        
@@ -96,22 +96,39 @@ class JournalViewController: UIViewController, UITableViewDelegate, UITableViewD
             default:
                 break
             }
+
+            let dict =  Dictionary(grouping: filteredMoments, by: {$0.getDate()?.toString()})
+            self.sections = dict.sorted(by: { UtilDate.getDateFromString(dateString: $0.key!)! > UtilDate.getDateFromString(dateString: $1.key!)! }).map { (key, values) in
+                return MomentGroup(MomentDate: key ?? "-", Moments: values)
+            }
             
-            self.momentDiary = filteredMoments.sorted(by: { $0.MomentDate! > $1.MomentDate! })
             self.diaryTable.reloadData()
             self.refreshControl.endRefreshing()
             ProgressUtil.dismiss()
         }
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        sections.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+
+        let section = self.sections[section]
+        let date = section.MomentDate
+        return date
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        momentDiary.count
+        let section = self.sections[section]
+        return section.Moments.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell( withIdentifier: "diaryCell", for: indexPath) as! MomentTableViewCell
         
-        let moment = momentDiary[indexPath.row]
+        let section = self.sections[indexPath.section]
+        let moment = section.Moments[indexPath.row]
 
         cell.textLabel?.text = moment.MomentName
         cell.detailTextLabel?.text =  moment.getTime() //moments[indexPath.row].getTime()
@@ -148,7 +165,30 @@ class JournalViewController: UIViewController, UITableViewDelegate, UITableViewD
         {
             vc.InstanceVC = self
             present(vc, animated: true, completion: nil)
-            vc.setup(vm: momentDiary[indexPath.row])
+            
+            let section = self.sections[indexPath.section]
+            let moment = section.Moments[indexPath.row]
+            
+            vc.setup(vm: moment)
+        }
+    }
+    
+    public func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            var section = self.sections[indexPath.section]
+            let moment = section.Moments[indexPath.row]
+            
+            section.Moments.remove(at: indexPath.row)
+            tableView.reloadData()
+
+            if let mt = moment.MomentID{
+                AppDelegate.WebApi.DeleteMoment(momentID: Int(mt) ?? 0) { (result) in
+                    self.refreshData();
+                }
+            }
+            
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }
     

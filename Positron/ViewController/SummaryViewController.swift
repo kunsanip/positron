@@ -16,8 +16,14 @@ public class SummaryViewController: UIViewController
     @IBOutlet weak var scrollableStackView: UIStackView!
     @IBOutlet weak var weeklySummaryView: MacawChartView!
     @IBOutlet weak var viewBySegment: UISegmentedControl!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     public override func viewDidLoad() {
         weeklySummaryView.contentMode = .scaleAspectFit
+        let font = UIFont.systemFont(ofSize: 10)
+        
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: PositronColor.primary], for: .selected)
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: font], for: .normal)
+        segmentedControl.selectedSegmentTintColor = .white
     }
     
     public override func viewDidAppear(_ animated: Bool) {

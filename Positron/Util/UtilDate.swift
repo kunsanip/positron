@@ -10,6 +10,15 @@ import Foundation
 
 public class UtilDate
 {
+    public static func getDateFromString(dateString: String)-> Date?
+    {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "dd-MM-yyyy"
+        
+        return formatter.date(from: dateString)
+    }
+    
     public static func getCurrentDateString() -> String
     {
         let formatter = DateFormatter()
@@ -41,6 +50,12 @@ public class UtilDate
         return myCalendar.veryShortWeekdaySymbols[weekDay-1]
     }
 
+    private func firstDayOfMonth(date: Date) -> Date {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month], from: date)
+        return calendar.date(from: components)!
+    }
+
 }
 
 extension Date {
@@ -50,6 +65,14 @@ extension Date {
     
     func startOfMonth(using calendar: Calendar = .gregorian) -> Date {
         calendar.date(from: calendar.dateComponents([.year, .month], from: self))!
+    }
+    
+    func toString(using calendar: Calendar = .gregorian) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "dd-MM-yyyy"
+        
+        return  formatter.string(from: self)
     }
 }
 

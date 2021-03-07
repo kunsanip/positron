@@ -18,6 +18,8 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
     var imageView: UIImageView!
+    var textView: UILabel!
+
     var dailyTable: DailyStatTableView!
     var task: SFSpeechRecognitionTask!
 
@@ -48,6 +50,7 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
         initializeCircleAnimation()
         initializeRecordButton()
         initializeDailyTable()
+        initializeText()
     }
     
     override func viewDidAppear(_ animated: Bool)
@@ -184,7 +187,7 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
             imageView.center = centre
             
             let toURL = "\(AppDelegate.ApiURL)/uploadRecording"
-            var moment = MomentApiModel()
+            let moment = MomentApiModel()
             moment.MomentName = "Moment"
             moment.MomentDate = moment.getDateForApi()
             moment.AudioRecordingURL = ""
@@ -202,19 +205,12 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
                     moment.TranscribedNotes = result
                     
                     AppDelegate.WebApi.InsertMoment(moment: moment) { (insertResult) in
-                        
+                        self.refreshData()
                     }}
-                ProgressUtil.dismiss()
             })
 
             shapeLayer.removeAllAnimations()
         }
-    }
-    
-    private func startSpeechRecognition()
-    {
-        guard request != nil else { fatalError("Unable to create a SFSpeechAudioBufferRecognitionRequest object") }
-        request.shouldReportPartialResults = true
     }
     
     @objc private func handleTap(sender: UITapGestureRecognizer)
@@ -262,9 +258,8 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
         
         AppDelegate.WebApi.InsertMoment(moment: moment) { (result) in
             print("success before")
+            self.refreshData()
         }
-        
-        refreshData()
     }
     
     private func initializeDailyTable()
@@ -283,6 +278,33 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
         dailyTable.bottomAnchor.constraint(equalTo:imageView.safeAreaLayoutGuide.topAnchor).isActive = true
         
         dailyTable.backgroundColor = .clear
+    }
+    
+    private func initializeText()
+    {
+        let label = UILabel()
+        label.text = "Tap to count. Long press to record."
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textAlignment = .center
+        label.textColor = .white
+        
+        textView = label
+        textView.frame.size = CGSize(width: view.bounds.width, height: 20)
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.alpha = 1
+
+        UIView.animate(withDuration: 0.6, delay: 7, options: .curveEaseInOut, animations: {
+            self.textView.alpha = 0
+        })
+        
+        view.addSubview(textView);
+        
+        textView.topAnchor.constraint(equalTo:dailyTable.safeAreaLayoutGuide.topAnchor, constant: 80).isActive = true
+        textView.leadingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        textView.trailingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        textView.bottomAnchor.constraint(equalTo:imageView.safeAreaLayoutGuide.topAnchor).isActive = true
+
+        textView.backgroundColor = .clear
     }
 
     public func refreshData()
@@ -345,7 +367,6 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
 
                     if let url = apiresponse.Data {
                         completion(url)
-                        self.refreshData()
                     }
                 }catch {
                     print("Error: \(error)")

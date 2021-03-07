@@ -30,9 +30,9 @@ class ProfileViewController: UIViewController {
     
     @objc func tapCell()
     {
-        self.navigationController?.pushViewController(SummaryViewController(), animated: true)
-    }
-
+        self.performSegue(withIdentifier: "summary", sender: self)
+   }
+    
     @IBAction func LogOutPressed(_ sender: Any) {
 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

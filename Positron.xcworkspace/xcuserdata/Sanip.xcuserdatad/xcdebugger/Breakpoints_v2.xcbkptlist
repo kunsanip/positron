@@ -46,8 +46,8 @@
             filePath = "Positron/ViewController/DailyMomentViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "364"
-            endingLineNumber = "364"
+            startingLineNumber = "385"
+            endingLineNumber = "385"
             landmarkName = "DailyMomentViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "Positron/ViewController/DailyMomentViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
             landmarkName = "handleLongGesture(sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -142,8 +142,8 @@
             filePath = "Positron/ViewController/DailyMomentViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "180"
-            endingLineNumber = "180"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
             landmarkName = "handleLongGesture(sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -158,8 +158,8 @@
             filePath = "Positron/ViewController/DailyMomentViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "344"
-            endingLineNumber = "344"
+            startingLineNumber = "366"
+            endingLineNumber = "366"
             landmarkName = "UploadFile(deviceURL:toURL:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -174,8 +174,8 @@
             filePath = "Positron/ViewController/DailyMomentViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "340"
-            endingLineNumber = "340"
+            startingLineNumber = "362"
+            endingLineNumber = "362"
             landmarkName = "UploadFile(deviceURL:toURL:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -311,86 +311,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3951D838-28E9-4E08-8C27-18E33BD83147"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Positron/ViewController/DailyMomentViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "302"
-            endingLineNumber = "302"
-            landmarkName = "transcribeAudio(url:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "60BE9FD3-B1C4-4AD6-A01B-03040BB5638E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Positron/ViewController/DailyMomentViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "301"
-            endingLineNumber = "301"
-            landmarkName = "transcribeAudio(url:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1F1DB6E8-0363-4A42-833F-98ED833DD42C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Positron/ViewController/DailyMomentViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204"
-            landmarkName = "handleLongGesture(sender:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "1F1DB6E8-0363-4A42-833F-98ED833DD42C - 978008e378588ae1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.String) -&gt; () in closure #3 (Swift.String) -&gt; () in Positron.DailyMomentViewController.(handleLongGesture in _5018A116DCE1F31ADF2B04003F982220)(sender: __C.UILongPressGestureRecognizer) -&gt; ()"
-                  moduleName = "Positron"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Admin/Desktop/Projects/Positron-Main/Positron/ViewController/DailyMomentViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "204"
-                  endingLineNumber = "204"
-                  offsetFromSymbolStart = "204">
-               </Location>
-               <Location
-                  uuid = "1F1DB6E8-0363-4A42-833F-98ED833DD42C - f7accb1e88605eae"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.String) -&gt; () in closure #1 (Swift.String) -&gt; () in closure #3 (Swift.String) -&gt; () in Positron.DailyMomentViewController.(handleLongGesture in _5018A116DCE1F31ADF2B04003F982220)(sender: __C.UILongPressGestureRecognizer) -&gt; ()"
-                  moduleName = "Positron"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/Admin/Desktop/Projects/Positron-Main/Positron/ViewController/DailyMomentViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "206"
-                  endingLineNumber = "206"
-                  offsetFromSymbolStart = "24">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "5E82FD25-E649-4068-A604-416BC949EF58"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -401,6 +321,22 @@
             startingLineNumber = "143"
             endingLineNumber = "143"
             landmarkName = "textFieldShouldReturn(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DC617B1B-C7BE-489C-A326-29716360D909"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Positron/Util/UtilDate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "getDateFromString(dateString:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

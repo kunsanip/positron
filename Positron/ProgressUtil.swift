@@ -51,10 +51,9 @@ public class ProgressUtil
     {
         ProgressHUD.show()
         ProgressHUD.animationType = .lineScaling
-        ProgressHUD.colorHUD = .purple
+        ProgressHUD.colorHUD = .white
         ProgressHUD.colorBackground = .lightGray
-        ProgressHUD.colorAnimation = .systemBlue
-        ProgressHUD.colorProgress = .purple
+        ProgressHUD.colorProgress = .white
     }
     
     public static func dismiss()

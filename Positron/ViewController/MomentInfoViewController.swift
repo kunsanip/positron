@@ -38,8 +38,17 @@ public class MomentInfoViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         updateButton.isEnabled = true
-        // Do any additional setup after loading the view.
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(sender:)))
+        
+        // 2. add the gesture recognizer to a view
+        view.addGestureRecognizer(tapGesture)
     }
+    
+    // 3. this method is called when a tap is recognized
+    @objc func handleTap(sender: UITapGestureRecognizer) {
+        self.notesText.resignFirstResponder()
+    }
+    
     @IBAction func momentNameEdit(_ sender: Any) {
         
             let alert = UIAlertController(title: "", message: "Update moment name", preferredStyle: .alert)
