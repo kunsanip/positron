@@ -83,10 +83,22 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             signupDetail.Password = password.text
             signupDetail.DOB = dob.text
             signupDetail.Phonenumber = phone.text
-            
+            signupDetail.CreatedOn = Date().toStringDateTime()
+            ProgressUtil.custom(text: "Registering your new account...")
             AppDelegate.WebApi.SignupUser(apiModel: signupDetail) { (result) in
-                print(result)
+                if (result.Success!)
+                {
+                    self.dismiss(animated: true, completion: nil)
+                }
+                else
+                {
+                    self.ErrorMessage.text = result.Message
+                }
+                ProgressUtil.dismiss()
             }
+        }
+        else{
+            self.activeTextField.resignFirstResponder()
         }
     }
     
@@ -107,10 +119,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         if (emailAddress.text != "" && !(isValidEmail(email: emailAddress.text ?? "")))
         {
             message += "The email you've entered is invalid.\n"
-        }
-        if (phone.text != "")
-        {
-            message += "Invalid phone number.\n"
         }
         
         ErrorMessage.text = message
@@ -171,7 +179,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                 UIView.animate(withDuration: 0.25, animations: {
                     
                     self.view.layoutIfNeeded()
-                    self.view.frame.origin.y = keyboardSize.height + 20 -  self.activeTextField.frame.origin.y
+                    self.view.frame.origin.y = keyboardSize.height - 100 -  self.activeTextField.frame.origin.y
                 })
             }
     }

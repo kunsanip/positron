@@ -74,6 +74,14 @@ extension Date {
         
         return  formatter.string(from: self)
     }
+    
+    func toStringDateTime(using calendar: Calendar = .gregorian) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "dd-MM-yyyy hh:mm:ss"
+        
+        return  formatter.string(from: self)
+    }
 }
 
 extension Calendar {

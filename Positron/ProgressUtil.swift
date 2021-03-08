@@ -22,7 +22,6 @@ public class ProgressUtil
         ProgressHUD.colorStatus = .label
         ProgressHUD.fontStatus = .boldSystemFont(ofSize: 12)
     }
-    
     public static func logIn()
     {
         ProgressHUD.show("Logging in")
@@ -37,7 +36,6 @@ public class ProgressUtil
     
     public static func custom(text : String)
     {
-        
             ProgressHUD.show(text)
             ProgressHUD.animationType = .multipleCirclePulse
             ProgressHUD.colorHUD = .black

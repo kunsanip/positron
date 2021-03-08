@@ -12,11 +12,13 @@ public class ApiResponseModel: Codable
 {
     public var Success : Bool?
     public var Data : String?
+    public var Message: String?
     
     enum CodingKeys: String, CodingKey
     {
         case Success = "success"
         case Data = "data"
+        case Message = "message"
     }
     
 }

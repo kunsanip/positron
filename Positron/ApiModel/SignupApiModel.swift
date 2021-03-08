@@ -18,6 +18,7 @@ public class SignupApiModel:Codable
     public var Password: String?
     public var Phonenumber: String?
     public var DOB: String?
+    public var CreatedOn : String?
     
     enum CodingKeys: String, CodingKey
     {
@@ -27,5 +28,6 @@ public class SignupApiModel:Codable
         case Password = "Password"
         case Phonenumber = "Phonenumber"
         case DOB = "DOB"
+        case CreatedOn = "CreatedOn"
     }
 }

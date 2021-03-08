@@ -115,17 +115,35 @@ public class PositronApiClient
         })
     }
     
-    public func SignupUser(apiModel: SignupApiModel, completion:@escaping (String)->Void)
+    public func SignupUser(apiModel: SignupApiModel, completion:@escaping (ApiResponseModel)->Void)
     {
         AF.request("\(AppDelegate.ApiURL)/signupUser",
                    method: .post,
                    parameters: apiModel,
                    encoder: JSONParameterEncoder.default).response { response in
-                    print("After this")
-                    debugPrint(response)
-                    completion("")
+                        switch response.result {
+                        case .success:
+                            let jsonData = response.data
+                            do{
+                                let signupresult  =  try JSONDecoder().decode(ApiResponseModel.self, from: jsonData!)
+
+                                completion(signupresult)
+                            }catch {
+                                print("Error: \(error)")
+                                let vm = ApiResponseModel()
+                                vm.Success = false
+                                vm.Message = "Failed to sign up. An unknown error has occured."
+                                completion(vm)
+                            }
+                        case .failure(_):
+                            let vm = ApiResponseModel()
+                            vm.Success = false
+                            vm.Message = "Failed to sign up. An unknown error has occured."
+                            completion(vm)
+                        }
                    }
     }
+        
     public func InsertMoment(moment: MomentApiModel, completion:@escaping (String)->Void)
     {
         AF.request("\(AppDelegate.ApiURL)/addMoment",
