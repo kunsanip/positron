@@ -28,9 +28,9 @@
 		<true/>
 	</dict>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Would you like to give the app your permission to access the microphone?</string>
+	<string>Would you like to give the app your permission to access the microphone?  The app uses microphone to record your voice and store it as an audio journal. </string>
 	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>Would you like to give the app your permission to convert your speech to text?</string>
+	<string>Would you like to give the app your permission to convert your speech to text? This will be used to transcribe your voice recording into text.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

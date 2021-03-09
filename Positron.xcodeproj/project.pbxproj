@@ -29,6 +29,9 @@
 		D26F9F8C255660F0004F300F /* PositronColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26F9F8B255660EF004F300F /* PositronColor.swift */; };
 		D29EDA6625F37B08007EF29F /* Monkey mind logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D29EDA6525F37B08007EF29F /* Monkey mind logo.png */; };
 		D29EDA6A25F4A25E007EF29F /* MomentGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29EDA6925F4A25E007EF29F /* MomentGroup.swift */; };
+		D29EDA7E25F76E18007EF29F /* main-logo-transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = D29EDA7D25F76E17007EF29F /* main-logo-transparent.png */; };
+		D29EDA8525F770FD007EF29F /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29EDA8425F770FD007EF29F /* AboutUsViewController.swift */; };
+		D29EDA8825F78D2D007EF29F /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29EDA8725F78D2D007EF29F /* WebViewController.swift */; };
 		D2FA3E8D251A080700FFBF0A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FA3E8C251A080700FFBF0A /* AppDelegate.swift */; };
 		D2FA3E8F251A080700FFBF0A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FA3E8E251A080700FFBF0A /* SceneDelegate.swift */; };
 		D2FA3E91251A080700FFBF0A /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FA3E90251A080700FFBF0A /* SummaryViewController.swift */; };
@@ -63,6 +66,9 @@
 		D26F9F8B255660EF004F300F /* PositronColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PositronColor.swift; sourceTree = "<group>"; };
 		D29EDA6525F37B08007EF29F /* Monkey mind logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Monkey mind logo.png"; sourceTree = "<group>"; };
 		D29EDA6925F4A25E007EF29F /* MomentGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MomentGroup.swift; sourceTree = "<group>"; };
+		D29EDA7D25F76E17007EF29F /* main-logo-transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main-logo-transparent.png"; sourceTree = "<group>"; };
+		D29EDA8425F770FD007EF29F /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
+		D29EDA8725F78D2D007EF29F /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		D2FA3E89251A080700FFBF0A /* Positron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Positron.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2FA3E8C251A080700FFBF0A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D2FA3E8E251A080700FFBF0A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -131,6 +137,8 @@
 				D236A95F25C01DCF00F5A7FD /* ProfileViewController.swift */,
 				D236A96225C02AC300F5A7FD /* SignUpViewController.swift */,
 				D236A97125D7889A00F5A7FD /* MomentInfoViewController.swift */,
+				D29EDA8425F770FD007EF29F /* AboutUsViewController.swift */,
+				D29EDA8725F78D2D007EF29F /* WebViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -138,6 +146,7 @@
 		D202FBA9253AF1D300763C34 /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
+				D29EDA7D25F76E17007EF29F /* main-logo-transparent.png */,
 				D2FA3E97251A080900FFBF0A /* Assets.xcassets */,
 				D29EDA6525F37B08007EF29F /* Monkey mind logo.png */,
 				D2FA3E94251A080700FFBF0A /* Main.storyboard */,
@@ -284,6 +293,7 @@
 				D2FA3E9B251A080900FFBF0A /* LaunchScreen.storyboard in Resources */,
 				D2FA3E98251A080900FFBF0A /* Assets.xcassets in Resources */,
 				D2FA3E96251A080700FFBF0A /* Main.storyboard in Resources */,
+				D29EDA7E25F76E18007EF29F /* main-logo-transparent.png in Resources */,
 				D29EDA6625F37B08007EF29F /* Monkey mind logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -342,11 +352,13 @@
 				D20038C625433122008625FA /* PositronApiClient.swift in Sources */,
 				D237AF78253B36A200161112 /* WeeklySummaryBar.swift in Sources */,
 				D2FA3E93251A080700FFBF0A /* DailyMomentViewController.swift in Sources */,
+				D29EDA8525F770FD007EF29F /* AboutUsViewController.swift in Sources */,
 				D2FA3E91251A080700FFBF0A /* SummaryViewController.swift in Sources */,
 				D236A96325C02AC400F5A7FD /* SignUpViewController.swift in Sources */,
 				D236A96025C01DD000F5A7FD /* ProfileViewController.swift in Sources */,
 				D236A96925D75C3200F5A7FD /* SignupApiModel.swift in Sources */,
 				D20038CE254334A4008625FA /* MomentApiModel.swift in Sources */,
+				D29EDA8825F78D2D007EF29F /* WebViewController.swift in Sources */,
 				D237AF70253B35CC00161112 /* MacawChartView.swift in Sources */,
 				D236A95A25BC210C00F5A7FD /* SignInViewController.swift in Sources */,
 				D202FB992532E4DD00763C34 /* Util.swift in Sources */,
@@ -509,7 +521,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.2;
+				CURRENT_PROJECT_VERSION = 1.0.3;
 				DEVELOPMENT_TEAM = 6XD4UEMVZ7;
 				INFOPLIST_FILE = Positron/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -517,7 +529,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = Personal.Positron;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -533,7 +545,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.0.2;
+				CURRENT_PROJECT_VERSION = 1.0.3;
 				DEVELOPMENT_TEAM = 6XD4UEMVZ7;
 				INFOPLIST_FILE = Positron/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -541,7 +553,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = Personal.Positron;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

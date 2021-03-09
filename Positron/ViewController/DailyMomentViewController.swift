@@ -197,7 +197,7 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
             let deviceURL = Util.getDocumentsDirectory().appendingPathComponent(AudioFileName)
             //momentTable.moments = MomentList
             
-            ProgressUtil.barProgress()
+            ProgressUtil.custom(text: "Saving your recording.\nPlease wait..")
             self.UploadFile(deviceURL: deviceURL, toURL: toURL, completion: { (url) in
                 moment.AudioRecordingURL = url
                 self.audioRecorder.stop()
