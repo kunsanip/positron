@@ -71,7 +71,64 @@ class SignInViewController: UIViewController,UITextFieldDelegate {
             }
         }
     }
+    
+    @IBAction func exploreBtnPressed(_ sender: Any) {
+        //sign up
+        AppDelegate.WebApi.GetUsernameForExplorer { (id) in
+            let signupDetail = SignupApiModel()
+            signupDetail.Firstname = "Explore-\(id)"
+            signupDetail.Lastname = "Explore-\(id)"
+            signupDetail.UserID = "Explore-\(id)"
+            signupDetail.Password = "Explore-Pass-\(id)"
+            signupDetail.DOB = "1/1/2000"
+            signupDetail.Phonenumber = ""
+            signupDetail.CreatedOn = Date().toStringDateTime()
+            ProgressUtil.custom(text: "Loading....")
+            AppDelegate.WebApi.SignupUser(apiModel: signupDetail) { (result) in
+                if (result.Success!)
+                {
+                    ProgressUtil.logIn()
+                    AppDelegate.WebApi.Login(username: "Explore-\(id)", password: "Explore-Pass-\(id)") { (success) in
+                        if (success)
+                        {
+                            AppDelegate.UserID = "Explore-\(id)"
+                            AppDelegate.Password = "Explore-Pass-\(id)"
+              
+                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                            let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
+                            
+                            let defaults = UserDefaults.standard
+                            defaults.set(AppDelegate.UserID, forKey: "username")
+                            defaults.set(AppDelegate.Password, forKey: "password")
 
+                            ProgressUtil.dismiss()
+                            
+                            // This is to get the SceneDelegate object from your view controller
+                            // then call the change root view controller function to change to main tab bar
+                            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
+                        }
+                        else
+                        {
+                            ProgressUtil.custom(text: "Login failed..")
+                            ProgressUtil.dismiss()
+                            
+                            self.errorMessageLabel.text = "Login failed. Invalid username/password."
+                        }
+                    }
+                }
+                else
+                {
+                    print("Failed..")
+                }
+                ProgressUtil.dismiss()
+            }
+            //save on device
+            
+            //login
+        }
+        
+    }
+    
     func validateFields() -> Bool
     {
         if ((usernameLabel.text) != nil && passwordLabel.text != nil)

@@ -143,6 +143,32 @@ public class PositronApiClient
                         }
                    }
     }
+    
+    public func GetUsernameForExplorer(completion: @escaping (String)->Void)
+    {
+        let requestURL = "\(AppDelegate.ApiURL)/GetUsernameForExplorer/"
+        
+        print (requestURL)
+        
+        AF.request(requestURL).responseJSON { (response) in
+            switch response.result {
+            case .success:
+                let jsonData = response.data
+                do{
+                    let explorerResult  =  try JSONDecoder().decode(ApiResponseModel.self, from: jsonData!)
+                    
+
+                    completion(explorerResult.Message ?? "")
+                }catch {
+                    print("Error: \(error)")
+                    completion("")
+                }
+                
+            case .failure( _):
+                completion("")
+            }
+        }
+    }
         
     public func InsertMoment(moment: MomentApiModel, completion:@escaping (String)->Void)
     {
