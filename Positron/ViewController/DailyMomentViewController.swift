@@ -52,7 +52,14 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
         initializeDailyTable()
         initializeText()
     }
-    
+    func Reset()
+    {
+        view.subviews.forEach({ $0.removeFromSuperview() }) // this gets things done
+        initializeRecordButton()
+        initializeDailyTable()
+        initializeText()
+        refreshData()
+    }
     override func viewDidAppear(_ animated: Bool)
     {
         refreshData()
@@ -180,6 +187,7 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
         }
         else if (sender.state == .ended)
         {
+            shapeLayer.removeAllAnimations()
             let circularPath = UIBezierPath(arcCenter: centre, radius: 100, startAngle: -CGFloat.pi / 2, endAngle: 2 * CGFloat.pi, clockwise: true)
             trackShapeLayer.path = circularPath.cgPath
             shapeLayer.path = circularPath.cgPath
@@ -196,20 +204,15 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
 
             let deviceURL = Util.getDocumentsDirectory().appendingPathComponent(AudioFileName)
             //momentTable.moments = MomentList
-            
             ProgressUtil.custom(text: "Saving your recording.\nPlease wait..")
             self.UploadFile(deviceURL: deviceURL, toURL: toURL, completion: { (url) in
-                moment.AudioRecordingURL = url
+                                moment.AudioRecordingURL = url
                 self.audioRecorder.stop()
-                self.transcribeAudio(url: deviceURL) { (result) in
-                    moment.TranscribedNotes = result
-                    
-                    AppDelegate.WebApi.InsertMoment(moment: moment) { (insertResult) in
-                        self.refreshData()
-                    }}
-            })
 
-            shapeLayer.removeAllAnimations()
+                ProgressUtil.custom(text: "Transcribing audio..")
+                self.transcribeAudio(url: deviceURL, moment: moment)
+                
+            })
         }
     }
     
@@ -318,7 +321,7 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
         }
     }
     
-    private func transcribeAudio(url: URL, completion :@escaping (String ) -> Void)
+    private func transcribeAudio(url: URL, moment: MomentApiModel)
     {
         let recognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))
         let request = SFSpeechURLRecognitionRequest(url: url)
@@ -328,12 +331,16 @@ class DailyMomentViewController: UIViewController, AVAudioRecorderDelegate, SFSp
         if (recognizer?.isAvailable)! {
 
             recognizer?.recognitionTask(with: request) { result, error in
-                guard error == nil else { print("Error: \(error!)"); return }
-                guard let result = result else { print("No result!"); return }
+                guard error == nil else { print("Error: \(error!)"); ProgressUtil.dismiss(); self.Reset(); return}
+                guard let result = result else { print("No result!"); ProgressUtil.dismiss(); self.Reset(); return }
  
                 if result.isFinal{
                 let resultTranscription = (result.bestTranscription.formattedString)
-                    completion(resultTranscription);
+                    moment.TranscribedNotes = resultTranscription
+                    ProgressUtil.custom(text: "Saving moment.")
+                    AppDelegate.WebApi.InsertMoment(moment: moment) { (insertResult) in
+                        self.refreshData()
+                    }
                 }
             }
         } else {
